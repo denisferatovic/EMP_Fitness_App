@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/fit_home"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/vaje"
+        android:icon="@drawable/fit_sport"
+        android:title="@string/exercises" />
+    <item
+        android:id="@+id/koledar"
+        android:icon="@drawable/fit_calendar"
+        android:title="@string/calendar" />
+    <item
+        android:id="@+id/grafi"
+        android:icon="@drawable/fit_graphs"
+        android:title="@string/graphs" />
+    <item
+        android:id="@+id/stoparica"
+        android:icon="@drawable/fit_timer"
+        android:title="@string/stopwatch" />
+    <item
+        android:id="@+id/zemljevid"
+        android:icon="@drawable/fit_map"
+        android:title="@string/maps" />
+    <item
+        android:id="@+id/pomoc"
+        android:icon="@drawable/fit_help"
+        android:title="@string/help" />
+</menu>
