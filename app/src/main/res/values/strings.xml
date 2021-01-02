@@ -51,4 +51,7 @@
     <string name="maps">Maps</string>
     <string name="monthly_exercise_calendar">Monthly exercise calendar:</string>
     <string name="calendar">Calendar</string>
+    <string name="add_exercises">Add exercises</string>
+    <string name="Ime_seta">Ime seta vaj</string>
+    <string name="nastej_vaje">Nastej vaje, ki jih želiš dodati (vsako v svojo vrstico)</string>
 </resources>
