@@ -54,4 +54,6 @@
     <string name="add_exercises">Add exercises</string>
     <string name="Ime_seta">Ime seta vaj</string>
     <string name="nastej_vaje">Nastej vaje, ki jih želiš dodati (vsako v svojo vrstico)</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

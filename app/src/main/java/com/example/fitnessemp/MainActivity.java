@@ -119,6 +119,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         }
+        else if(menuItem.getItemId() == R.id.stepCounter){
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_fragment, new StepCounter());
+            fragmentTransaction.commit();
+            drawerLayout.closeDrawers();
+
+
+        }
         return true;
     }
 
