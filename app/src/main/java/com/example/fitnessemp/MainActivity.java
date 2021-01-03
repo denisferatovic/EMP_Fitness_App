@@ -32,12 +32,17 @@ import com.google.android.material.navigation.NavigationView;
 import static com.example.fitnessemp.R.drawable.ic_hamburger;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    public static int seconds = 0;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     Toolbar toolbar;
     NavigationView navigationView;
     public static FragmentManager fragmentManager;
     public static FragmentTransaction fragmentTransaction;
+
+
+
 
 
     @Override

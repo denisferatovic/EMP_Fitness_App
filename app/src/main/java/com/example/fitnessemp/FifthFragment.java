@@ -90,7 +90,6 @@ public class FifthFragment extends Fragment {
     }
 
 
-
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         savedInstanceState.putInt("seconds", seconds);
@@ -103,6 +102,7 @@ public class FifthFragment extends Fragment {
         super.onPause();
         wasRunning = running;
         running = false;
+        MainActivity.seconds = seconds;
     }
 
     @Override
@@ -110,7 +110,10 @@ public class FifthFragment extends Fragment {
         super.onResume();
         if (wasRunning) {
             running = true;
+            seconds = MainActivity.seconds;
         }
+        seconds = MainActivity.seconds;
+        onClickStart();
     }
 
     public void onClickStart() {

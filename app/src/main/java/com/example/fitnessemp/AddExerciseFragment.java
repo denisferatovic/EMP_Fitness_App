@@ -1,6 +1,9 @@
 package com.example.fitnessemp;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,12 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AddExerciseFragment extends Fragment {
 
@@ -55,11 +64,40 @@ public class AddExerciseFragment extends Fragment {
 
         //give feedback... "Exercise added" ipd.
 
-
+        //Device unique ID
+        String android_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         //reset field or go to parent view
+        if(vaje != null) {
+            final Long[] vrednost = {Long.valueOf(0)};
+            final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()};
+            @SuppressLint("HardwareIds") DatabaseReference myRef = database[0].getReference("miska").child(android_id).child("touchpad").child("Statistika");
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    int zeNotri = 0;
+                    for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                        if (singleSnapshot.getKey().equals("Desni klik")) {
+                            zeNotri = 1;
+                            vrednost[0] = (Long) singleSnapshot.getValue();
+                            myRef.child("Desni klik").setValue(vrednost[0] + 1);
 
+                        }
+                    }
+                    if (zeNotri == 0) {
+                        myRef.child("Desni klik").setValue(1);
+                    }
 
-    }
+                    myRef.removeEventListener(this);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                }
+            });
+
+        }
+
+        }
     // data class
     public class Workout {
         public String ime_workout;
