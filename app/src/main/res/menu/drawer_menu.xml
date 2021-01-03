@@ -10,6 +10,10 @@
         android:icon="@drawable/fit_sport"
         android:title="@string/exercises" />
     <item
+        android:id="@+id/stepCounter"
+        android:icon="@drawable/steps_icon"
+        android:title="Steps" />
+    <item
         android:id="@+id/koledar"
         android:icon="@drawable/fit_calendar"
         android:title="@string/calendar" />
