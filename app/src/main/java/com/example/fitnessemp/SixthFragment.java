@@ -1,7 +1,6 @@
 package com.example.fitnessemp;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,14 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,6 +33,9 @@ import java.util.List;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 
 public class SixthFragment extends Fragment implements LocationListener, OnMapReadyCallback {
 
@@ -44,15 +43,11 @@ public class SixthFragment extends Fragment implements LocationListener, OnMapRe
     GoogleMap map;
     SupportMapFragment mapFragment;
     SearchView searchView;
-    LocationManager mLocationManager;
-    MyLocationListener mLocationListener;
     int counter = 0;
     Location loc;
     View view;
     LatLng latLng;
-    int count = 0;
 
-    @SuppressLint("MissingPermission")
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,24 +57,19 @@ public class SixthFragment extends Fragment implements LocationListener, OnMapRe
             return view;
         }
         view = inflater.inflate(R.layout.fragment_sixth, container, false);
-        mLocationListener = new MyLocationListener();
+
         searchView = view.findViewById(R.id.sv_location);
         mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.mapView);
-        mLocationManager = (LocationManager) getActivity().getSystemService(this.getContext().LOCATION_SERVICE);
 
-
-        ActivityCompat.requestPermissions(this.getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION}, 1);
-
-        try {
-            checkPermission(ACCESS_FINE_LOCATION, 1);
-            checkPermission(ACCESS_COARSE_LOCATION, 1);
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, mLocationListener);
-            loc = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        } catch (SecurityException e) {
-            Toast.makeText(this.getContext(), "erorr!", Toast.LENGTH_SHORT).show();
+        MyLocationListener gps = new MyLocationListener(getContext());
+        if(gps.canGetLocation()){
+            gps.getLatitude(); // returns latitude
+            gps.getLongitude();
         }
-        Location location = loc;
-        System.out.println(loc);
+
+
+        Location location = gps.location;
+        System.out.println(location);
         if(counter == 0){
             if(location != null){
                 latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -133,20 +123,10 @@ public class SixthFragment extends Fragment implements LocationListener, OnMapRe
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        loc = location;
+
     }
 
-    public void checkPermission(String permission, int requestCode){
-        // Checking if permission is not granted
-        if (ContextCompat.checkSelfPermission(this.getContext(), permission) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this.getActivity(), new String[] { permission }, requestCode);
-        }
-        else {
-            if(count == 0) {
-                Toast.makeText(this.getContext(), "Permission already granted", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+
 
 
     @Override
@@ -177,4 +157,3 @@ public class SixthFragment extends Fragment implements LocationListener, OnMapRe
 
     }
 }
-
