@@ -3,7 +3,6 @@ package com.example.fitnessemp;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
