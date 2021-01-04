@@ -19,7 +19,7 @@ import static android.content.Context.SENSOR_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link StepCounter#newInstance} factory method to
+ * Use the {@link StepCounter#} factory method to
  * create an instance of this fragment.
  */
 public class StepCounter extends Fragment implements SensorEventListener, StepListener {
@@ -113,5 +113,18 @@ public class StepCounter extends Fragment implements SensorEventListener, StepLi
         numSteps++;
         textView.setText(TEXT_NUM_STEPS + numSteps);
         System.out.println(simpleStepDetector.toString());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MainActivity.steps = numSteps;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        numSteps = MainActivity.steps;
+
     }
 }

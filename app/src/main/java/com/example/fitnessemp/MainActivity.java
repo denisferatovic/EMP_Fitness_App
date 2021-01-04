@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static FragmentManager fragmentManager;
     public static FragmentTransaction fragmentTransaction;
     public static int seconds;
-
+    public static int steps;
     private LocationManager locationManager;
     public static Location onlyOneLocation;
     private final int REQUEST_FINE_LOCATION = 1234;
