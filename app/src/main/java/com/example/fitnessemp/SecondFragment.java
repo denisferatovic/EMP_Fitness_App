@@ -34,6 +34,7 @@ public class SecondFragment extends Fragment {
         exercise = view.findViewById(R.id.addExercise2);
         exercise.setOnClickListener(
                 view -> goToAddExercise());
+
         return view;
     }
     // called when add exercise button is clicked
@@ -45,31 +46,6 @@ public class SecondFragment extends Fragment {
         fragmentManager.beginTransaction().replace(R.id.container_fragment, fragment).commit();
     }
 
-    public void WriteToFirebase(String data) {
-        final Long[] vrednost = {Long.valueOf(0)};
-        final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()};
-        DatabaseReference myRef = database[0].getReference("miska").child("Statistika");
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    if (singleSnapshot.getKey().equals("Desni klik")) {
-                        vrednost[0] = (Long) singleSnapshot.getValue();
-                        myRef.child("Desni klik").setValue(vrednost[0] + 1);
-                    }
-
-
-                }
-                myRef.removeEventListener(this);
-
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-            }
-        });
-    }
     @Override
     public void onResume() {
         super.onResume();
