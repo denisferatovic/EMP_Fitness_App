@@ -18,7 +18,7 @@ import androidx.core.content.ContextCompat;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.INTERNET;
 
-public class MyLocationListener extends AppCompatActivity implements LocationListener {
+public class MyLocationListener extends MainActivity implements LocationListener {
 
     private final Context mContext;
 

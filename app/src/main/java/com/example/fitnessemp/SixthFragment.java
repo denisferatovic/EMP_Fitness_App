@@ -25,7 +25,6 @@ import java.util.List;
 
 public class SixthFragment extends Fragment implements LocationListener, OnMapReadyCallback {
 
-
     GoogleMap map;
     SupportMapFragment mapFragment;
     SearchView searchView;
