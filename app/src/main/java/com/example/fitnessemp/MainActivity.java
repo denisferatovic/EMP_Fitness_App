@@ -45,13 +45,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static FragmentTransaction fragmentTransaction;
     public static int seconds;
     public static int steps;
+    public static String android_id;
     private LocationManager locationManager;
     public static Location onlyOneLocation;
     private final int REQUEST_FINE_LOCATION = 1234;
     public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
+
     public static String android_id = "13"; //Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
     ///--TO DO--^ za fixat da ne bo hard coded
     static HashMap<String,AddExerciseFragment.Workout>  workouts = new HashMap<String,AddExerciseFragment.Workout>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +62,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
+
+        android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+        //System.out.println(android_id); -> ga dobi!
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         actionBarDrawerToggle.syncState();
         toolbar.setNavigationIcon(ic_hamburger);
-
         //load default fragment
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -192,6 +197,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentManager = getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container_fragment, new StepCounter());
+            fragmentTransaction.commit();
+            drawerLayout.closeDrawers();
+
+
+        }
+        else if(menuItem.getItemId() == R.id.maxCalulator){
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_fragment, new MaxCalculator());
             fragmentTransaction.commit();
             drawerLayout.closeDrawers();
 

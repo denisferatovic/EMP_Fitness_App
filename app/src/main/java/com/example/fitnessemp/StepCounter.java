@@ -52,12 +52,8 @@ public class StepCounter extends Fragment implements SensorEventListener, StepLi
         simpleStepDetector = new StepDetector();
         simpleStepDetector.registerListener(this);
         textView = (TextView) view.findViewById(R.id.stepsText);
-//        sensitivityValue = (TextView) view.findViewById(R.id.sensitivityInput);
-//        currentSensitivity = (TextView) view.findViewById(R.id.currentSensitivity);
         Button btnStart = (Button) view.findViewById(R.id.button_first);
-//        Button setSensitivityBtn = (Button) view.findViewById(R.id.setSensitivityButton);
-//        currentSensitivity.setText("Current sensitivity: " + simpleStepDetector.getSensitivity());
-//        System.out.println("Sensitivity currently set to: " + simpleStepDetector.getSensitivity());
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -75,24 +71,6 @@ public class StepCounter extends Fragment implements SensorEventListener, StepLi
 
             }
         });
-//        setSensitivityBtn.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View arg0) {
-//                String s = sensitivityValue.getText().toString();
-//                if(s.length() > 0) {
-//                    Float f= Float.parseFloat(s);
-//                    simpleStepDetector.setSensitivity(f);
-//                    System.out.println("Sensitivity set to: " + simpleStepDetector.getSensitivity());
-//                    currentSensitivity.setText("Current sensitivity: " + simpleStepDetector.getSensitivity());
-//                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    imm.hideSoftInputFromWindow(currentSensitivity.getWindowToken(),
-//                            InputMethodManager.RESULT_UNCHANGED_SHOWN);
-//                }
-//
-//            }
-//        });
-
 
     }
     @Override

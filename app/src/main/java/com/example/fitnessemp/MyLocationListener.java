@@ -38,13 +38,11 @@ public class MyLocationListener implements LocationListener {
                     != PackageManager.PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission( ctx, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {  }
             if (isGPSEnabled == true) {
-                locationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,     0,       0, this);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,     0,       0, this);
                 location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             }
             if (isNetworkEnabled==true) {
-                locationManager.requestLocationUpdates(
-                        LocationManager.NETWORK_PROVIDER,    0,     0, this);
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,    0,     0, this);
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             }
             latitude = location.getLatitude();
@@ -56,7 +54,6 @@ public class MyLocationListener implements LocationListener {
         }
         catch(Exception ex)
         {
-
             //Toast.makeText(ctx,"Exception "+ex, Toast.LENGTH_LONG).show();
         }
     }

@@ -14,6 +14,10 @@
         android:icon="@drawable/steps_icon"
         android:title="Steps" />
     <item
+        android:id="@+id/maxCalulator"
+        android:icon="@drawable/max_icon"
+        android:title="Max Calculator" />
+    <item
         android:id="@+id/koledar"
         android:icon="@drawable/fit_calendar"
         android:title="@string/calendar" />
