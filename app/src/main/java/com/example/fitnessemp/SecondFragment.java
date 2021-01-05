@@ -32,8 +32,7 @@ public class SecondFragment extends Fragment {
         }
         view = inflater.inflate(R.layout.fragment_second, container, false);
         exercise = view.findViewById(R.id.addExercise2);
-        exercise.setOnClickListener(
-                view -> goToAddExercise());
+        exercise.setOnClickListener(view -> goToAddExercise());
 
         return view;
     }

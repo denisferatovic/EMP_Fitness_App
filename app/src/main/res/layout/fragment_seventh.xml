@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="ExtraText">
 
     <TextView
         android:id="@+id/activeItems8"
@@ -18,18 +20,84 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/eating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="start"
-        android:text="@string/help"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:background="@drawable/textviewborderdark"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:linksClickable="true"
+        android:gravity="center"
+        android:padding="20px"
+        android:text="@string/eating"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activeItems8"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/exercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:linksClickable="true"
+        android:gravity="center"
+        android:padding="20px"
+        android:text="@string/active"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eating"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/activitiy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:linksClickable="true"
+        android:gravity="center"
+        android:padding="20px"
+        android:text="@string/activity"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exercise"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/track"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:linksClickable="true"
+        android:gravity="center"
+        android:padding="20px"
+        android:text="@string/track"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activitiy"
+        tools:ignore="MissingConstraints" />
+
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/activity_main_youtubePlayerView"
+        android:layout_width="300dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="350dp"
+        app:autoPlay="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:useWebUi="false"
+        app:showFullScreenButton="false"
+        app:videoId="rzrpvmHDKlg" />
+
+    <TextView
+        android:id="@+id/activeItems10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="290dp"
+        android:text="Warmup video:"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

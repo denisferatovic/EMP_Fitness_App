@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +31,7 @@ import static com.example.fitnessemp.MainActivity.mDatabase;
 public class AddExerciseFragment extends Fragment {
 
     View view;
-    Button mButton;
+    Button mButton, backSecond;
     EditText mEdit;
     EditText set;
     @Nullable
@@ -43,12 +44,15 @@ public class AddExerciseFragment extends Fragment {
         }
         view = inflater.inflate(R.layout.fragment_add_exercise, container, false);
         mButton = view.findViewById(R.id.addExercise);
+        backSecond = view.findViewById(R.id.backSecond);
+
         mEdit   = view.findViewById(R.id.editTextTextMultiLine3);
         set   = view.findViewById(R.id.ime_seta);
 
         //listener za button click
-        mButton.setOnClickListener(
-                view -> addExercise());
+        mButton.setOnClickListener(view -> addExercise());
+        backSecond.setOnClickListener(view -> goToSecond());
+
         return view;
     }
     public void addExercise(){
@@ -81,6 +85,7 @@ public class AddExerciseFragment extends Fragment {
 
 
         }
+
     // data class
     public static class Workout {
         public String ime_workout;
@@ -109,6 +114,14 @@ public class AddExerciseFragment extends Fragment {
         }
 
 
+    }
+
+    public void goToSecond(){
+        Log.i("Info", "Prsu v goToAddExercise");
+        Fragment fragment = new SecondFragment();
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container_fragment, fragment).commit();
     }
 
     @Override
