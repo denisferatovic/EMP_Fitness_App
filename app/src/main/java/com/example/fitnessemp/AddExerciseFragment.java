@@ -21,6 +21,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+import static com.example.fitnessemp.MainActivity.mDatabase;
+
 public class AddExerciseFragment extends Fragment {
 
     View view;
@@ -47,40 +53,43 @@ public class AddExerciseFragment extends Fragment {
     }
     public void addExercise(){
         //get string from inputs when Add exercise is clicked
-        String [] vaje = mEdit.getText().toString().split("\n");
+        Scanner sc= new Scanner(mEdit.getText().toString());
+        ArrayList<String> vaje = new ArrayList<>();
+        String vaja;
+        while(sc.hasNextLine()){
+            vaja = sc.nextLine();
+            if(!vaja.equals("")&&!vaja.equals(" "))
+                vaje.add(vaja);
+        }
+
         String workoutSet = set.getText().toString();
         //Info to console
-        Log.i("ime_text",workoutSet);
-        Log.i("EditText", vaje.toString());
+        Log.d("ime_text",workoutSet);
+        Log.d("EditText", vaje.toString());
 
         Workout workout = new Workout(workoutSet,vaje);
 
-        //send data to DB
-        /*
-         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        //Device unique ID
-        String android_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-
-        mDatabase.child("vaje").child(android_id).child(workout.ime()).setValue(workout);
-        */
-        //give feedback... "Exercise added" ipd.
-        Toast.makeText(this.getContext(), "Exercise added to databse", Toast.LENGTH_LONG).show();
-
-
-        //reset field or go to parent view
+        if(workout.isComplete()) {
+            mDatabase.child(MainActivity.android_id).child("vaje").child(workout.ime()).setValue(workout.vaje());
+            Toast.makeText(this.getContext(), "Exercise added to databse", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Log.d("Incomplete", "Attempted to add incomplete data to firebase");
+            Toast.makeText(this.getContext(), "Incomplete data, fill out the whole form", Toast.LENGTH_LONG).show();
+        }
+        //go to parent fragment @jaša
 
 
         }
     // data class
-    public class Workout {
+    public static class Workout {
         public String ime_workout;
-        public String [] vaje;
+        ArrayList<String> vaje = new ArrayList<String>();
         public String [] opis_vaj; // ce se odlocmo dodati se opise k vajam
         public Workout(){
 
         }
-        public Workout(String ime, String [] vaje){
+        public Workout(String ime, ArrayList vaje){
             this.ime_workout = ime;
             this.vaje = vaje;
 
@@ -88,9 +97,17 @@ public class AddExerciseFragment extends Fragment {
         public String ime(){
             return ime_workout;
         }
-        public String [] vaje(){
+        public ArrayList<String> vaje(){
             return vaje;
         }
+        public boolean isComplete(){
+            return !vaje.isEmpty() && !ime_workout.equals("");
+        }
+        @Override
+        public String toString(){
+            return ime_workout+" => " + vaje + " ";
+        }
+
 
     }
 

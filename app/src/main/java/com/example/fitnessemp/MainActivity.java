@@ -16,12 +16,21 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import static com.example.fitnessemp.R.drawable.ic_hamburger;
 
@@ -38,8 +47,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private LocationManager locationManager;
     public static Location onlyOneLocation;
     private final int REQUEST_FINE_LOCATION = 1234;
-
-
+    public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
+    public static String android_id = "13"; //Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+    ///--TO DO--^ za fixat da ne bo hard coded
+    ArrayList<AddExerciseFragment.Workout> workouts = new ArrayList<AddExerciseFragment.Workout>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +78,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_FINE_LOCATION);
         }
+        // Read from the database
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+
+                if(dataSnapshot.child(android_id+"/vaje").exists()) {
+                    Iterator<DataSnapshot> it = dataSnapshot.child(android_id + "/vaje").getChildren().iterator();
+                    while(it.hasNext()){
+                        DataSnapshot snap = it.next();
+                        workouts.add(new AddExerciseFragment.Workout(snap.getKey(), (ArrayList) snap.getValue()));
+                    }
+                }
+                Log.d("DataChange", "Value is: " + workouts);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("", "Failed to read value.", error.toException());
+            }
+        });
 
     }
 
