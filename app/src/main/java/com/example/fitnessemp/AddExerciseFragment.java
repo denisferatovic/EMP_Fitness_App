@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import static com.example.fitnessemp.MainActivity.mDatabase;
@@ -106,6 +107,17 @@ public class AddExerciseFragment extends Fragment {
         @Override
         public String toString(){
             return ime_workout+" => " + vaje + " ";
+        }
+        public String izpisVaj(){
+            Iterator<String> it = this.vaje.iterator();
+            String text="";
+            while(it.hasNext()){
+                text = text.concat(it.next()+" ");
+            }
+            return text;
+        }
+        public String izpisWorkout(){
+            return ime_workout  + " : "  + izpisVaj() + "\n";
         }
 
 

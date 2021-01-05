@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.HashMap;
 
 import static com.example.fitnessemp.R.drawable.ic_hamburger;
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
     public static String android_id = "13"; //Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
     ///--TO DO--^ za fixat da ne bo hard coded
-    ArrayList<AddExerciseFragment.Workout> workouts = new ArrayList<AddExerciseFragment.Workout>();
+    static HashMap<String,AddExerciseFragment.Workout>  workouts = new HashMap<String,AddExerciseFragment.Workout>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +91,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Iterator<DataSnapshot> it = dataSnapshot.child(android_id + "/vaje").getChildren().iterator();
                     while(it.hasNext()){
                         DataSnapshot snap = it.next();
-                        workouts.add(new AddExerciseFragment.Workout(snap.getKey(), (ArrayList) snap.getValue()));
+
+                        workouts.put(snap.getKey(),new AddExerciseFragment.Workout(snap.getKey(), (ArrayList) snap.getValue()));
                     }
                 }
-                Log.d("DataChange", "Value is: " + workouts);
+                Log.d("DataChange", "Value is: " + workouts.get("Set1").izpisWorkout());
 
             }
 

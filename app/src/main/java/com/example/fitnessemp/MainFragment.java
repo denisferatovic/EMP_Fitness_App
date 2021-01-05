@@ -2,6 +2,7 @@ package com.example.fitnessemp;
 
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+
+import static com.example.fitnessemp.MainActivity.workouts;
 
 public class MainFragment extends Fragment {
 
@@ -38,6 +43,15 @@ public class MainFragment extends Fragment {
 
 
         activeWorkoutContainer = view.findViewById(R.id.activeWorkoutsContainer);
+        String novtext="";
+        if(!MainActivity.workouts.isEmpty()) {
+
+            for(HashMap.Entry<String, AddExerciseFragment.Workout> entry : MainActivity.workouts.entrySet()){
+                novtext = novtext.concat(entry.getValue().izpisWorkout());
+            }
+            Log.d("Concat",novtext);
+            activeWorkoutContainer.setText(novtext);
+        }
         addExercise = view.findViewById(R.id.addExercise);
         activeWorkoutContainer.setMovementMethod(new ScrollingMovementMethod());
         setRetainInstance(true);

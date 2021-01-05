@@ -42,19 +42,6 @@
         tools:ignore="RtlCompat" />
 
     <TextView
-        android:id="@+id/activeWorkoutsContainer3"
-        android:layout_width="300dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="23dp"
-        android:background="@drawable/textviewborder"
-        android:scrollbars="vertical"
-        android:text="@string/active_workouts_here"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activeItems2" />
-
-    <TextView
         android:id="@+id/activeItems3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,5 +64,17 @@
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activeItems2"
+
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
