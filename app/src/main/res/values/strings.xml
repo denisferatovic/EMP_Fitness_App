@@ -62,5 +62,6 @@
     <string name="activity">3. <a href="https://www.nhlbi.nih.gov/health/educational/lose_wt/phy_act.htm" target="_top">Activity guide</a> (Blood institute) </string>
     <string name="track">4. <a href="https://www.heart.org/-/media/files/health-topics/answers-by-heart/pe-abh-how-can-i-keep-track-of-physical-activity-and-eating-ucm_300471.pdf" target="_top">Track your activity</a> (Easy-reading) </string>
     <string name="basis">5. <a href="https://www.cdc.gov/physicalactivity/basics/index.htm" target="_top">Basic Activities</a> (Human services) </string>
+    <string name="startExercise">Start Exercise</string>
 
 </resources>
