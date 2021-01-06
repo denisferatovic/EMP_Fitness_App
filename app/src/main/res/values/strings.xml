@@ -1,4 +1,4 @@
-    <resources>
+<resources>
     <string name="app_name">FitnessEMP</string>
     <string name="getfit">GetFit</string>
     <string name="home1">Home</string>
@@ -63,4 +63,4 @@
     <string name="track">4. <a href="https://www.heart.org/-/media/files/health-topics/answers-by-heart/pe-abh-how-can-i-keep-track-of-physical-activity-and-eating-ucm_300471.pdf" target="_top">Track your activity</a> (Easy-reading) </string>
     <string name="basis">5. <a href="https://www.cdc.gov/physicalactivity/basics/index.htm" target="_top">Basic Activities</a> (Human services) </string>
 
-    </resources>
+</resources>
