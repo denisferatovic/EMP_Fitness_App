@@ -51,8 +51,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final int REQUEST_FINE_LOCATION = 1234;
     public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
 
-    public static String android_id = "13"; //Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-    ///--TO DO--^ za fixat da ne bo hard coded
+    //test id
+    //public static String android_id= "13"; //Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
     static HashMap<String,AddExerciseFragment.Workout>  workouts = new HashMap<String,AddExerciseFragment.Workout>();
 
 
@@ -86,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         // Read from the database
 
+        //mDatabase.child(MainActivity.android_id).child("vaje").setValue(""); // reset db entries
+
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         workouts.put(snap.getKey(),new AddExerciseFragment.Workout(snap.getKey(), (ArrayList) snap.getValue()));
                     }
                 }
-                Log.d("DataChange", "Value is: " + workouts.get("Set1").izpisWorkout());
+                Log.d("DataChange", "Value is: " + workouts);
 
             }
 
