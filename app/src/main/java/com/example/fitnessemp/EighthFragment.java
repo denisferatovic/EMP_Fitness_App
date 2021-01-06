@@ -1,5 +1,6 @@
 package com.example.fitnessemp;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +25,7 @@ public class EighthFragment extends Fragment {
     private static EditText w;
     private static EditText r;
     private static TextView result;
+    private static Context ctx;
 
     public EighthFragment() {
         // Required empty public constructor
@@ -38,6 +41,7 @@ public class EighthFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -50,10 +54,11 @@ public class EighthFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        calculateBtn = (Button) view.findViewById(R.id.calculateBtn);
-        w = (EditText)view.findViewById(R.id.weight);
-        r = (EditText)view.findViewById(R.id.reps);
+        calculateBtn = (Button) view.findViewById(R.id.setG);
+        w = (EditText)view.findViewById(R.id.steps);
+        r = (EditText)view.findViewById(R.id.wrkouts);
         result = (TextView) view.findViewById(R.id.output);
+        ctx = this.getContext();
 
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +68,8 @@ public class EighthFragment extends Fragment {
                     double reps = Double.parseDouble(r.getText().toString());
                     double r = Math.round(weight * Math.pow(reps,0.10));
                     result.setText(String.valueOf(r) + " kg");
+                }else{
+                    Toast.makeText(ctx,"Insert weight and reps!",Toast.LENGTH_LONG).show();
                 }
 
             }

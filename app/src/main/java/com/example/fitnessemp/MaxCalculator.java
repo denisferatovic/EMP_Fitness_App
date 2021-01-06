@@ -1,6 +1,5 @@
 package com.example.fitnessemp;
 
-import android.hardware.SensorManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -75,9 +74,9 @@ public class MaxCalculator extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        calculateBtn = (Button) view.findViewById(R.id.calculateBtn);
-        w = (EditText)view.findViewById(R.id.weight);
-        r = (EditText)view.findViewById(R.id.reps);
+        calculateBtn = (Button) view.findViewById(R.id.setG);
+        w = (EditText)view.findViewById(R.id.steps);
+        r = (EditText)view.findViewById(R.id.wrkouts);
         result = (TextView) view.findViewById(R.id.output);
 
         calculateBtn.setOnClickListener(new View.OnClickListener() {

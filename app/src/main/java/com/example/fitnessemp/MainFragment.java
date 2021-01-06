@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.example.fitnessemp.MainActivity.DailyWorkouts;
 import static com.example.fitnessemp.MainActivity.workouts;
 
 public class MainFragment extends Fragment {
@@ -28,6 +30,9 @@ public class MainFragment extends Fragment {
     Button addExercise;
     FragmentManager fragmentManager = MainActivity.fragmentManager;
     FragmentTransaction fragmentTransaction = MainActivity.fragmentTransaction;
+    ProgressBar stepProgress,workoutProgress;
+    private int DailySteps, DailyWorkouts;
+    private int currentSteps,currrentWorkouts;
 
     View view;
 
@@ -40,7 +45,20 @@ public class MainFragment extends Fragment {
             return view;
         }
         view = inflater.inflate(R.layout.fragment_main, container, false);
+        DailySteps = MainActivity.DailySteps;
+        DailyWorkouts = MainActivity.DailyWorkouts;
+        currentSteps = MainActivity.steps;
+        currentSteps = MainActivity.ActiveWorkouts;
+        stepProgress = (ProgressBar) view.findViewById(R.id.stepProgress);
+        workoutProgress = (ProgressBar) view.findViewById(R.id.workoutProgress);
+        stepProgress.setEnabled(true);
+        workoutProgress.setEnabled(true);
 
+        stepProgress.setMax(1000);
+        workoutProgress.setMax(DailyWorkouts);
+
+        stepProgress.setProgress(500);
+        workoutProgress.setProgress(currrentWorkouts);
 
         activeWorkoutContainer = view.findViewById(R.id.activeWorkoutsContainer);
         String novtext="";
@@ -70,6 +88,9 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        DailyWorkouts = MainActivity.DailyWorkouts;
+        DailySteps = MainActivity.DailySteps;
+        currentSteps = MainActivity.steps;
     }
 
     @Override

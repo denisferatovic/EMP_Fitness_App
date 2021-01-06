@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static Location onlyOneLocation;
     private final int REQUEST_FINE_LOCATION = 1234;
     public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
+    public static int DailySteps,DailyWorkouts;
+    public static int ActiveWorkouts;
 
     //test id
     //public static String android_id= "13"; //Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -192,8 +194,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.replace(R.id.container_fragment, new SeventhFragment());
             fragmentTransaction.commit();
             drawerLayout.closeDrawers();
-
-
         }
         else if(menuItem.getItemId() == R.id.stepCounter){
             fragmentManager = getSupportFragmentManager();
@@ -201,8 +201,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.replace(R.id.container_fragment, new StepCounter());
             fragmentTransaction.commit();
             drawerLayout.closeDrawers();
-
-
+        }
+        else if(menuItem.getItemId() == R.id.goals){
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_fragment, new NinthFragment());
+            fragmentTransaction.commit();
+            drawerLayout.closeDrawers();
         }
         else if(menuItem.getItemId() == R.id.maxCalulator){
             fragmentManager = getSupportFragmentManager();

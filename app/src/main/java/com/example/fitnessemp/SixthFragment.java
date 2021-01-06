@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -28,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -46,6 +49,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+
+import static com.example.fitnessemp.MyLocationListener.latitude;
 
 
 public class SixthFragment extends Fragment implements OnMapReadyCallback {
@@ -59,6 +65,8 @@ public class SixthFragment extends Fragment implements OnMapReadyCallback {
     LatLng latLng;
     Location myLocation;
     double Longitude,Latitude,mLatitude,myLongitude;
+    Geocoder geocoder;
+    private Context ctx;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
@@ -70,11 +78,11 @@ public class SixthFragment extends Fragment implements OnMapReadyCallback {
             return view;
         }
         view = inflater.inflate(R.layout.fragment_sixth, container, false);
-
         searchView = view.findViewById(R.id.sv_location);
         mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
-
+        geocoder = new Geocoder(this.getContext(), Locale.getDefault());
+        ctx = this.getContext();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -363,15 +371,32 @@ public class SixthFragment extends Fragment implements OnMapReadyCallback {
 
                 LatLng latLng = new LatLng(lat, lng);
 
+                List<Address> addresses;
+
+                String address,city,state,country,postalCode,knownName;
+                address = city = state = country = postalCode = knownName = "";
+
+                try {
+                    addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+                    address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                    city = addresses.get(0).getLocality();
+                    state = addresses.get(0).getAdminArea();
+                    country = addresses.get(0).getCountryName();
+                    postalCode = addresses.get(0).getPostalCode();
+                    knownName = addresses.get(0).getFeatureName();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 // Setting the position for the marker
-                markerOptions.position(latLng);
+                markerOptions.position(latLng).title(address+"\n"+city+"\n"+postalCode);
 
                 markerOptions.title(name + " : " + vicinity);
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
 
                 // Placing a marker on the touched position
-                System.out.println(markerOptions);
                 map.addMarker(markerOptions);
 
             }

@@ -12,59 +12,61 @@
         android:id="@+id/max_calculator_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calculate Max Lift"
+        android:layout_marginTop="100dp"
+        android:text="Set daily goals:"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/steps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="30sp" />/>
+        app:layout_constraintTop_toTopOf="parent" /><![CDATA[/>
+
+
+
+
+
+
+
+
+
+
+
+
+    ]]>
 
     <EditText
         android:id="@+id/steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:ems="10"
-        android:hint="Weight"
+        android:hint="Daily steps"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/output"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@+id/max_calculator_heading" />
 
     <EditText
         android:id="@+id/wrkouts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:ems="10"
-        android:hint="Reps"
+        android:hint="Daily workouts"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/output"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/steps" />
-
 
     <Button
         android:id="@+id/setG"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CALCULATE"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="67dp"
+        android:text="SET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/output" />
+        app:layout_constraintTop_toBottomOf="@+id/wrkouts" />
 
-    <TextView
-        android:id="@+id/output"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="20sp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

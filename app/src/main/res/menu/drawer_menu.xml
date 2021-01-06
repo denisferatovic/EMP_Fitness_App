@@ -10,13 +10,17 @@
         android:icon="@drawable/fit_sport"
         android:title="@string/exercises" />
     <item
+        android:id="@+id/goals"
+        android:icon="@drawable/ic_goals"
+        android:title="@string/dailGoal" />
+    <item
         android:id="@+id/stepCounter"
         android:icon="@drawable/steps_icon"
-        android:title="Steps" />
+        android:title="@string/steps" />
     <item
         android:id="@+id/maxCalulator"
         android:icon="@drawable/max_icon"
-        android:title="Max Calculator" />
+        android:title="@string/max_calculator" />
     <item
         android:id="@+id/koledar"
         android:icon="@drawable/fit_calendar"

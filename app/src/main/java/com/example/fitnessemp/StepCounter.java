@@ -46,6 +46,8 @@ public class StepCounter extends Fragment implements SensorEventListener, StepLi
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        numSteps = MainActivity.steps;
+
         // Get an instance of the SensorManager
         sensorManager = (SensorManager) getActivity().getSystemService(SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -58,7 +60,6 @@ public class StepCounter extends Fragment implements SensorEventListener, StepLi
             @Override
             public void onClick(View arg0) {
 
-                numSteps = 0;
                 sensorManager.registerListener(StepCounter.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
                 if(btnStart.getText().equals("START")) {
                     btnStart.setText("STOP");
@@ -100,9 +101,15 @@ public class StepCounter extends Fragment implements SensorEventListener, StepLi
     }
 
     @Override
-    public void onResume() {
+    public void onDestroy() {
+        super.onDestroy();
+        MainActivity.steps = numSteps;
+    }
+
+    @Override
+    public void onResume () {
         super.onResume();
         numSteps = MainActivity.steps;
 
     }
-}
+    }
