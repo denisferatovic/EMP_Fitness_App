@@ -1,7 +1,6 @@
 package com.example.fitnessemp;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,19 +10,12 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import static com.example.fitnessemp.MainActivity.DailyWorkouts;
-import static com.example.fitnessemp.MainActivity.workouts;
 
 public class MainFragment extends Fragment {
 
@@ -33,7 +25,8 @@ public class MainFragment extends Fragment {
     FragmentTransaction fragmentTransaction = MainActivity.fragmentTransaction;
     ProgressBar stepProgress,workoutProgress;
     private int DailySteps, DailyWorkouts;
-    private int currentSteps,currrentWorkouts;
+    private int currentSteps,currentWorkouts;
+
 
     View view;
 
@@ -49,24 +42,18 @@ public class MainFragment extends Fragment {
         DailySteps = MainActivity.DailySteps;
         DailyWorkouts = MainActivity.DailyWorkouts;
         currentSteps = MainActivity.steps;
-        currentSteps = MainActivity.ActiveWorkouts;
-        stepProgress = (ProgressBar) view.findViewById(R.id.stepProgress);
-        workoutProgress = (ProgressBar) view.findViewById(R.id.workoutProgress);
-        stepProgress.setIndeterminate(false);
-        workoutProgress.setIndeterminate(false);
-        stepProgress.setMax(DailySteps);
-        workoutProgress.setMax(DailyWorkouts);
+        currentWorkouts = MainActivity.ActiveWorkouts;
+        ProgressCircle circleProg1 = (ProgressCircle) view.findViewById(R.id.stepBar);
+        ProgressCircle circleProg2 = (ProgressCircle) view.findViewById(R.id.workoutBar);
 
-        new Thread(new Runnable() {
-            public void run() {
-                while (stepProgress.getProgress() < stepProgress.getMax()) {
-                    // Update the progress bar and display the
-                    //current value in the text view
-                    stepProgress.setProgress(currentSteps);
-                    workoutProgress.setProgress(currrentWorkouts);
-                }
-            }
-        }).start();
+        circleProg1.setMax(DailyWorkouts);
+        circleProg1.setProgress((int) circleProg1.getProgress());
+        circleProg1.setProgressWithAnimation(currentWorkouts);
+
+        circleProg2.setMax(DailySteps);
+        circleProg2.setProgress((int) circleProg2.getProgress());
+        circleProg2.setProgressWithAnimation(currentSteps);
+
 
         activeWorkoutContainer = view.findViewById(R.id.activeWorkoutsContainer);
         String novtext="";

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "154289093515",
+    "project_id": "fifth-dynamics-297418",
+    "storage_bucket": "fifth-dynamics-297418.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154289093515:android:742ca256c9b59e074acd8e",
+        "android_client_info": {
+          "package_name": "com.example.fitnessemp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154289093515-4i1pqc5ikt6j09ctuitvf0qgotpkg9gr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4R54yJRzb22ySyrhkUODQ--FknEPo3iA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154289093515-4i1pqc5ikt6j09ctuitvf0qgotpkg9gr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

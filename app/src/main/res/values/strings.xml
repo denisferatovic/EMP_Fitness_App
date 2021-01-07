@@ -63,12 +63,12 @@
     <string name="track">4. <a href="https://www.heart.org/-/media/files/health-topics/answers-by-heart/pe-abh-how-can-i-keep-track-of-physical-activity-and-eating-ucm_300471.pdf" target="_top">Track your activity</a> (Easy-reading) </string>
     <string name="basis">5. <a href="https://www.cdc.gov/physicalactivity/basics/index.htm" target="_top">Basic Activities</a> (Human services) </string>
     <string name="startExercise">Start Exercise</string>
-    <string name="steps">Steps</string>
+    <string name="steps3">Steps</string>
     <string name="max_calculator">Max Calculator</string>
     <string name="dailGoal">Daily Goals</string>
     <string name="home3">Home</string>
     <string name="steps1">Steps</string>
-    <string name="workouts">Workouts</string>
+    <string name="workouts2">Workouts</string>
     <string name="add_new_exercise">Add new exercise:</string>
     <string name="calculate_max_lift">Calculate Max Lift</string>
     <string name="weight">Weight</string>
@@ -84,5 +84,7 @@
     <string name="_0">0</string>
     <string name="step_counter">Step Counter</string>
     <string name="warmup_video">Warmup video:</string>
+    <string name="workouts">Workouts</string>
+    <string name="steps">Steps</string>
 
 </resources>

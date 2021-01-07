@@ -38,6 +38,7 @@ public class StepCounter extends Fragment implements SensorEventListener, StepLi
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
+
     ) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_step_counter, container, false);
@@ -45,7 +46,6 @@ public class StepCounter extends Fragment implements SensorEventListener, StepLi
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         numSteps = MainActivity.steps;
 
         // Get an instance of the SensorManager
@@ -54,15 +54,18 @@ public class StepCounter extends Fragment implements SensorEventListener, StepLi
         simpleStepDetector = new StepDetector();
         simpleStepDetector.registerListener(this);
         textView = (TextView) view.findViewById(R.id.stepsText);
+        textView.setText(String.valueOf(numSteps));
         Button btnStart = (Button) view.findViewById(R.id.button_first);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-
+                numSteps = MainActivity.steps;
                 sensorManager.registerListener(StepCounter.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
                 if(btnStart.getText().equals("START")) {
                     btnStart.setText("STOP");
+                    MainActivity.steps = numSteps;
+
                 }
                 else {
                     btnStart.setText("START");

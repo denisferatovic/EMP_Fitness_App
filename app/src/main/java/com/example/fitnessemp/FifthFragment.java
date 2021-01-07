@@ -111,7 +111,7 @@ public class FifthFragment extends Fragment {
             seconds = MainActivity.seconds;
         }
         seconds = MainActivity.seconds;
-        onClickStart();
+
     }
 
     public void onClickStart() {

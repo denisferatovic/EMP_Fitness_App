@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 import static com.example.fitnessemp.MainActivity.mDatabase;
+import static com.example.fitnessemp.MainActivity.mReference;
 
 public class AddExerciseFragment extends Fragment {
 
@@ -44,6 +45,7 @@ public class AddExerciseFragment extends Fragment {
             return view;
         }
         view = inflater.inflate(R.layout.fragment_add_exercise, container, false);
+
         mButton = view.findViewById(R.id.addExercise);
         backSecond = view.findViewById(R.id.backSecond);
 
@@ -56,6 +58,7 @@ public class AddExerciseFragment extends Fragment {
 
         return view;
     }
+
     public void addExercise(){
         //get string from inputs when Add exercise is clicked
         Scanner sc= new Scanner(mEdit.getText().toString());
@@ -75,8 +78,8 @@ public class AddExerciseFragment extends Fragment {
         Workout workout = new Workout(workoutSet,vaje);
 
         if(workout.isComplete()) {
-            mDatabase.child(MainActivity.android_id).child("vaje").child(workout.ime()).setValue(workout.vaje());
-            Toast.makeText(this.getContext(), "Exercise added to databse", Toast.LENGTH_LONG).show();
+            mReference.child(MainActivity.android_id).child("vaje").child(workout.ime()).setValue(workout.vaje());
+            Toast.makeText(this.getContext(), "Exercise added to database!  ", Toast.LENGTH_LONG).show();
         }
         else {
             Log.d("Incomplete", "Attempted to add incomplete data to firebase");

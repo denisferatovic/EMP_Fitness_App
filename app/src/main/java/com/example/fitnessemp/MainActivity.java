@@ -16,6 +16,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
@@ -55,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private LocationManager locationManager;
     public static Location onlyOneLocation;
     private final int REQUEST_FINE_LOCATION = 1234;
-    public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
+    public static FirebaseDatabase mDatabase;
+    public static DatabaseReference mReference;
     public static int DailySteps,DailyWorkouts;
     public static int ActiveWorkouts;
     private Calendar calendar;
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     static HashMap<String,AddExerciseFragment.Workout>  workouts = new HashMap<String,AddExerciseFragment.Workout>();
     static HashMap<String,WorkoutDays> workoutDays = new HashMap<>();
     private String apikey = "AIzaSyBdOvTWvRNqdJAZzHRx8MyA69l9BK3mSJo";
+    private int cycle = 0;
 
 
     @Override
@@ -76,7 +79,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
+        if(cycle == 0) {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            cycle++;
+        }
+        mDatabase = FirebaseDatabase.getInstance();
+        mReference = mDatabase.getReference("message");
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
@@ -110,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //mDatabase.child(MainActivity.android_id).child("vaje").setValue(""); // reset db entries
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -134,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.w("", "Failed to read value.", error.toException());
             }
         });
-        mDatabase.child(android_id+"/dates").addValueEventListener(new ValueEventListener() {
+        mReference.child(android_id+"/dates").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again

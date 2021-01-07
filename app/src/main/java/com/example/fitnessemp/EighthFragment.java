@@ -36,6 +36,7 @@ import java.util.Map;
 
 import static com.example.fitnessemp.MainActivity.android_id;
 import static com.example.fitnessemp.MainActivity.mDatabase;
+import static com.example.fitnessemp.MainActivity.mReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -166,7 +167,7 @@ public class EighthFragment extends Fragment {
 
                 if(e1.getText().equals("")||e2.getText().equals(""))
                     continue;
-                mDatabase.child(android_id+"/dates/"+date+"/workout").child(vaja).setValue(e1.getText().toString()+" x "+e2.getText().toString());
+                mReference.child(android_id+"/dates/"+date+"/workout").child(vaja).setValue(e1.getText().toString()+" x "+e2.getText().toString());
             }
             //Toast.makeText(ctx,"Finished workout",Toast.LENGTH_LONG).show();
             //Log.d("Database",mDatabase.child(date).toString());

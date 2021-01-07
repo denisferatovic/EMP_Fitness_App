@@ -1,11 +1,23 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
     android.defaultConfig.vectorDrawables.useSupportLibrary = true
+    apply plugin: 'com.google.gms.google-services'  // Google Services plugin
+
+    allprojects {
+        repositories {
+            maven { url 'https://jitpack.io' }
+        }
+    }
+    defaultConfig {
+        // Enabling multidex support.
+        multiDexEnabled true
+    }
 
     defaultConfig {
         applicationId "com.example.fitnessemp"
@@ -32,15 +44,24 @@ android {
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
+    //noinspection NotInterpolated
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.3'
     implementation 'com.google.android.libraries.places:places:2.2.0'
+    implementation 'com.android.support:multidex:1.0.3'  //with support libraries
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-maps:15.0.0'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
-    implementation 'com.google.firebase:firebase-database:19.6.0'
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    // Declare the dependency for the Realtime Database library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-analytics'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.firebase:firebase-database:19.6.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
