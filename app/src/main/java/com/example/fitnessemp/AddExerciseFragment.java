@@ -82,8 +82,8 @@ public class AddExerciseFragment extends Fragment {
             Log.d("Incomplete", "Attempted to add incomplete data to firebase");
             Toast.makeText(this.getContext(), "Incomplete data, fill out the whole form", Toast.LENGTH_LONG).show();
         }
-        //go to parent fragment @jaša
-
+        //go to parent fragment
+        goToSecond();
 
         }
 

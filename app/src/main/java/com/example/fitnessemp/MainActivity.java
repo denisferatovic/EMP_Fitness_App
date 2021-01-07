@@ -32,9 +32,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.fitnessemp.R.drawable.ic_hamburger;
 
@@ -55,11 +58,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
     public static int DailySteps,DailyWorkouts;
     public static int ActiveWorkouts;
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+    private String date;
 
     //test id
     //public static String android_id= "13"; //Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
     static HashMap<String,AddExerciseFragment.Workout>  workouts = new HashMap<String,AddExerciseFragment.Workout>();
+    static HashMap<String,WorkoutDays> workoutDays = new HashMap<>();
     private String apikey = "AIzaSyBdOvTWvRNqdJAZzHRx8MyA69l9BK3mSJo";
 
 
@@ -118,6 +125,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 }
                 Log.d("DataChange", "Value is: " + workouts);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("", "Failed to read value.", error.toException());
+            }
+        });
+        mDatabase.child(android_id+"/dates").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String datum;
+                String vaja;
+                int set;
+                int rep;
+                if(dataSnapshot.exists()) {
+                    Iterator<DataSnapshot> it = dataSnapshot.getChildren().iterator();
+                    while(it.hasNext()){
+                        DataSnapshot snap = it.next();
+                        datum = snap.getKey();
+                        Iterator<DataSnapshot> it2 = snap.child("workout").getChildren().iterator();
+                        workoutDays.put(datum,new WorkoutDays());
+                        while(it2.hasNext()) {
+                            DataSnapshot snap2 = it2.next();
+                            vaja =snap2.getKey();
+                            set=Integer.parseInt(snap2.getValue().toString().split(" x ")[0]);
+                            rep=Integer.parseInt(snap2.getValue().toString().split(" x ")[1]);
+                            Integer [] info = new Integer[2];
+                            info[0]=set;
+                            info[1]=rep;
+                            workoutDays.get(datum).add(vaja,info);
+                            //Log.d("DataChangeDates", "Value is: " +vaja);
+                        }
+                    }
+                }
+
+
+                Log.d("DataChangeDates", "Value is: " + workoutDays);
 
             }
 
@@ -252,5 +300,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+    }
+    class WorkoutDays{
+        HashMap<String,Integer[]> vaje = new HashMap<>();
+        void add(String vaja,Integer [] reps_sets){
+            this.vaje.put(vaja,reps_sets);
+        }
+        @Override
+        public String toString(){
+            String text= "";
+            for(Map.Entry<String,Integer []> entry :vaje.entrySet()){
+                text = text.concat("( "+entry.getKey() +" => "+ entry.getValue()[0]+ " x "+entry.getValue()[1]+" ) ");
+            }
+            return text;
+        }
+
     }
 }
