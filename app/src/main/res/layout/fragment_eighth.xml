@@ -7,64 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".MaxCalculator">
 
-
-    <TextView
-        android:id="@+id/max_calculator_heading"
+    <Button
+        android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calculate Max Lift"
-        app:layout_constraintBottom_toTopOf="@+id/steps"
+        android:layout_marginTop="10sp"
+        android:layout_marginRight="20sp"
+        android:text="Back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="30sp" />/>
-
-    <EditText
-        android:id="@+id/steps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Weight"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/output"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <EditText
-        android:id="@+id/wrkouts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Reps"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/output"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/steps" />
+        <LinearLayout
+            android:id="@+id/items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
-    <Button
-        android:id="@+id/setG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CALCULATE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/output" />
 
-    <TextView
-        android:id="@+id/output"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="20sp"/>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

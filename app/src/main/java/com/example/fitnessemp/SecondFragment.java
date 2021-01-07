@@ -85,10 +85,10 @@ public class SecondFragment extends Fragment {
     public void goToExercise(){
         Log.d("Info", "Prsu v goToExercise");
 
-        //Fragment fragment = new WorkoutFragment(key);
+        Fragment fragment = new EighthFragment(key);
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
-        //fragmentManager.beginTransaction().replace(R.id.container_fragment, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.container_fragment, fragment).commit();
     }
 
     @Override

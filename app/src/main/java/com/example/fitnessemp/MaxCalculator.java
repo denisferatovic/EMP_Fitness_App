@@ -1,5 +1,6 @@
 package com.example.fitnessemp;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +30,8 @@ public class MaxCalculator extends Fragment {
     private static EditText w;
     private static EditText r;
     private static TextView result;
+    private static Context ctx;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -87,6 +91,9 @@ public class MaxCalculator extends Fragment {
                     double reps = Double.parseDouble(r.getText().toString());
                     double r = Math.round(weight * Math.pow(reps,0.10));
                     result.setText(String.valueOf(r) + " kg");
+                }
+                else {
+                    Toast.makeText(ctx,"Insert reps and weight!",Toast.LENGTH_LONG).show();
                 }
 
             }
