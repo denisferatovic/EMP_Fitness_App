@@ -13,33 +13,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Set daily goals:"
+        android:text="@string/set_daily_goals"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/steps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" /><![CDATA[/>
-
-
-
-
-
-
-
-
-
-
-
-
-    ]]>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/steps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:layout_marginTop="100dp"
+        android:background="@drawable/textviewborder"
         android:ems="10"
-        android:hint="Daily steps"
+        android:hint="@string/daily_steps"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -48,11 +38,14 @@
 
     <EditText
         android:id="@+id/wrkouts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
         android:layout_marginTop="50dp"
+        android:background="@drawable/textviewborder"
         android:ems="10"
-        android:hint="Daily workouts"
+        android:hint="@string/daily_workouts"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -64,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="67dp"
-        android:text="SET"
+        android:text="@string/set"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wrkouts" />

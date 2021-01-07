@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical" android:layout_height="5dp">
 
     <FrameLayout
         android:id="@+id/container_fragment"

@@ -1,6 +1,7 @@
 package com.example.fitnessemp;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,14 +52,21 @@ public class MainFragment extends Fragment {
         currentSteps = MainActivity.ActiveWorkouts;
         stepProgress = (ProgressBar) view.findViewById(R.id.stepProgress);
         workoutProgress = (ProgressBar) view.findViewById(R.id.workoutProgress);
-        stepProgress.setEnabled(true);
-        workoutProgress.setEnabled(true);
-
-        stepProgress.setMax(1000);
+        stepProgress.setIndeterminate(false);
+        workoutProgress.setIndeterminate(false);
+        stepProgress.setMax(DailySteps);
         workoutProgress.setMax(DailyWorkouts);
 
-        stepProgress.setProgress(500);
-        workoutProgress.setProgress(currrentWorkouts);
+        new Thread(new Runnable() {
+            public void run() {
+                while (stepProgress.getProgress() < stepProgress.getMax()) {
+                    // Update the progress bar and display the
+                    //current value in the text view
+                    stepProgress.setProgress(currentSteps);
+                    workoutProgress.setProgress(currrentWorkouts);
+                }
+            }
+        }).start();
 
         activeWorkoutContainer = view.findViewById(R.id.activeWorkoutsContainer);
         String novtext="";

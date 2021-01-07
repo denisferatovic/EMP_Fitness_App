@@ -20,12 +20,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -35,6 +41,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +60,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -77,16 +91,19 @@ public class SixthFragment extends Fragment implements OnMapReadyCallback {
                 ((ViewGroup) view.getParent()).removeView(view);
             return view;
         }
+
         view = inflater.inflate(R.layout.fragment_sixth, container, false);
-        searchView = view.findViewById(R.id.sv_location);
-        mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.mapView);
-        mapFragment.getMapAsync(this);
-        geocoder = new Geocoder(this.getContext(), Locale.getDefault());
-        ctx = this.getContext();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+        //autocomplete
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) this.getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+        assert autocompleteFragment != null;
+        autocompleteFragment.setTypeFilter(TypeFilter.CITIES);
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                String location1 = searchView.getQuery().toString();
+            public void onPlaceSelected(@NonNull Place place) {
+                String location1 = place.toString();
                 List<Address> addressList  = null;
 
                 if(location1 != null || !location1.equals("")){
@@ -107,14 +124,18 @@ public class SixthFragment extends Fragment implements OnMapReadyCallback {
                     placesTask.execute(sbValue.toString());
 
                 }
-                return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
+            public void onError(@NonNull Status status) {
+                System.out.println("ERROR:" + status);
             }
         });
+
+        mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.mapView);
+        mapFragment.getMapAsync(this);
+        geocoder = new Geocoder(this.getContext(), Locale.getDefault());
+        ctx = this.getContext();
 
         return view;
     }

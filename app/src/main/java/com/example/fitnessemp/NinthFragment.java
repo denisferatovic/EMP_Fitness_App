@@ -53,6 +53,7 @@ public class NinthFragment extends Fragment {
                 if(steps.getText().toString().length() > 0 && workouts.getText().toString().length() > 0) {
                     DailySteps = Integer.parseInt(steps.getText().toString());
                     DailyWorkouts = Integer.parseInt(workouts.getText().toString());
+                    Toast.makeText(ctx,"Daily goals set!",Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(ctx,"Insert daily steps and workouts!",Toast.LENGTH_LONG).show();
                 }
@@ -68,8 +69,12 @@ public class NinthFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        steps.setText(String.valueOf(MainActivity.DailySteps));
-        workouts.setText(String.valueOf(MainActivity.DailyWorkouts));
+        if(MainActivity.DailySteps != 0) {
+            steps.setText(String.valueOf(MainActivity.DailySteps));
+        }
+        if(MainActivity.DailyWorkouts != 0) {
+            workouts.setText(String.valueOf(MainActivity.DailyWorkouts));
+        }
     }
 
     @Override
