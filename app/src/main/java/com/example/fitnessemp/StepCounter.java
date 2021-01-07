@@ -56,16 +56,17 @@ public class StepCounter extends Fragment implements SensorEventListener, StepLi
         textView = (TextView) view.findViewById(R.id.stepsText);
         textView.setText(String.valueOf(numSteps));
         Button btnStart = (Button) view.findViewById(R.id.button_first);
+        if(numSteps > 0){
+            btnStart.setText("CONTINUE");
+        }
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 numSteps = MainActivity.steps;
                 sensorManager.registerListener(StepCounter.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
-                if(btnStart.getText().equals("START")) {
+                if(btnStart.getText().equals("START") || btnStart.getText().equals("CONTINUE") ) {
                     btnStart.setText("STOP");
-                    MainActivity.steps = numSteps;
-
                 }
                 else {
                     btnStart.setText("START");

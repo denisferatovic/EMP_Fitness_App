@@ -19,9 +19,16 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+
 public class SeventhFragment extends Fragment {
 
+
     TextView eat,active,guide,activity,basic;
+    private YouTubePlayerView yt;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,6 +50,9 @@ public class SeventhFragment extends Fragment {
 
         TextView link4 = view.findViewById(R.id.track);
         link4.setMovementMethod(LinkMovementMethod.getInstance());
+
+         yt = view.findViewById(R.id.activity_main_youtubePlayerView);
+
 
 
 

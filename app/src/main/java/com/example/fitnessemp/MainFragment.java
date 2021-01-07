@@ -45,14 +45,31 @@ public class MainFragment extends Fragment {
         currentWorkouts = MainActivity.ActiveWorkouts;
         ProgressCircle circleProg1 = (ProgressCircle) view.findViewById(R.id.stepBar);
         ProgressCircle circleProg2 = (ProgressCircle) view.findViewById(R.id.workoutBar);
-
-        circleProg1.setMax(DailyWorkouts);
+        if(DailyWorkouts != 0) {
+            circleProg1.setMax(DailyWorkouts);
+        }else{
+            circleProg1.setMax(100);
+        }
         circleProg1.setProgress((int) circleProg1.getProgress());
-        circleProg1.setProgressWithAnimation(currentWorkouts);
 
-        circleProg2.setMax(DailySteps);
+        if(DailyWorkouts != 0) {
+            circleProg2.setMax(DailySteps);
+        }else{
+            circleProg1.setMax(100);
+        }
         circleProg2.setProgress((int) circleProg2.getProgress());
-        circleProg2.setProgressWithAnimation(currentSteps);
+
+        if(DailyWorkouts == 0) {
+            circleProg1.setProgressWithAnimation(0);
+        }else{
+            circleProg1.setProgressWithAnimation(currentWorkouts);
+        }
+
+        if(DailySteps == 0) {
+            circleProg2.setProgressWithAnimation(0);
+        }else{
+            circleProg2.setProgressWithAnimation(currentSteps);
+        }
 
 
         activeWorkoutContainer = view.findViewById(R.id.activeWorkoutsContainer);

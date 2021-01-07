@@ -81,10 +81,9 @@
         android:layout_height="160dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="360dp"
-        app:autoPlay="true"
+        app:autoPlay="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:useWebUi="false"
         android:background="@drawable/textviewborder"
         app:showFullScreenButton="false"
         app:videoId="rzrpvmHDKlg" />

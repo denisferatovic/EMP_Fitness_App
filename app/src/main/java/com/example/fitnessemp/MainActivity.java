@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static FragmentManager fragmentManager;
     public static FragmentTransaction fragmentTransaction;
     public static int seconds;
-    public static int steps;
+    public static int steps,ActiveWorkouts;
     public static String android_id;
     private LocationManager locationManager;
     public static Location onlyOneLocation;
@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static FirebaseDatabase mDatabase;
     public static DatabaseReference mReference;
     public static int DailySteps,DailyWorkouts;
-    public static int ActiveWorkouts;
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String date;
@@ -70,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     static HashMap<String,AddExerciseFragment.Workout>  workouts = new HashMap<String,AddExerciseFragment.Workout>();
     static HashMap<String,WorkoutDays> workoutDays = new HashMap<>();
     private String apikey = "AIzaSyBdOvTWvRNqdJAZzHRx8MyA69l9BK3mSJo";
-    private int cycle = 0;
 
 
     @Override
@@ -79,12 +77,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(cycle == 0) {
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-            cycle++;
-        }
         mDatabase = FirebaseDatabase.getInstance();
-        mReference = mDatabase.getReference("message");
+        mReference = mDatabase.getReference();
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
