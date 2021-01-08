@@ -11,24 +11,12 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-/**
- * A subclass of {@link android.view.View} class for creating a custom circular progressBar
- *
- * Created by Pedram on 2015-01-06.
- */
 public class ProgressCircle extends View {
 
-
-    /**
-     * ProgressBar's line thickness
-     */
     private float strokeWidth = 4;
     private float progress = 0;
     private int min = 0;
     private int max = 100;
-    /**
-     * Start the progress at 12 o'clock
-     */
     private int startAngle = -90;
     private int color = Color.DKGRAY;
     private RectF rectF;
@@ -137,13 +125,6 @@ public class ProgressCircle extends View {
         rectF.set(0 + strokeWidth / 2, 0 + strokeWidth / 2, min - strokeWidth / 2, min - strokeWidth / 2);
     }
 
-    /**
-     * Lighten the given color by the factor
-     *
-     * @param color  The color to lighten
-     * @param factor 0 to 4
-     * @return A brighter color
-     */
     public int lightenColor(int color, float factor) {
         float r = Color.red(color) * factor;
         float g = Color.green(color) * factor;
@@ -155,14 +136,6 @@ public class ProgressCircle extends View {
         return (Color.argb(ia, ir, ig, ib));
     }
 
-    /**
-     * Transparent the given color by the factor
-     * The more the factor closer to zero the more the color gets transparent
-     *
-     * @param color  The color to transparent
-     * @param factor 1.0f to 0.0f
-     * @return int - A transplanted color
-     */
     public int adjustAlpha(int color, float factor) {
         int alpha = Math.round(Color.alpha(color) * factor);
         int red = Color.red(color);

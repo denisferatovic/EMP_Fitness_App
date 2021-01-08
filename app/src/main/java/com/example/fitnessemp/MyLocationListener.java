@@ -7,11 +7,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-
 import static android.content.Context.LOCATION_SERVICE;
 
 public class MyLocationListener implements LocationListener {
@@ -24,6 +21,8 @@ public class MyLocationListener implements LocationListener {
     boolean isGPSEnabled = false;
     boolean isNetworkEnabled = false;
     public static double longitude;
+
+
     MyLocationListener(Context ctx) {
         this.ctx = ctx;
         try {

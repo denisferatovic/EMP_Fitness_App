@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class FourthFragment extends Fragment {
+
     View view;
 
     @Nullable

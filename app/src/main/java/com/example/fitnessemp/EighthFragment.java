@@ -2,14 +2,11 @@ package com.example.fitnessemp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,30 +16,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.example.fitnessemp.MainActivity.android_id;
-import static com.example.fitnessemp.MainActivity.mDatabase;
 import static com.example.fitnessemp.MainActivity.mReference;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EighthFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class EighthFragment extends Fragment {
     private static Context ctx;
     private ArrayAdapter<String> adapter;

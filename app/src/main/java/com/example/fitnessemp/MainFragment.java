@@ -9,12 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import java.util.HashMap;
 
 public class MainFragment extends Fragment {
@@ -26,7 +24,6 @@ public class MainFragment extends Fragment {
     ProgressBar stepProgress,workoutProgress;
     private int DailySteps, DailyWorkouts;
     private int currentSteps,currentWorkouts;
-
 
     View view;
 
@@ -43,8 +40,11 @@ public class MainFragment extends Fragment {
         DailyWorkouts = MainActivity.DailyWorkouts;
         currentSteps = MainActivity.steps;
         currentWorkouts = MainActivity.ActiveWorkouts;
+
+        //Daily progress circles
         ProgressCircle circleProg1 = (ProgressCircle) view.findViewById(R.id.stepBar);
         ProgressCircle circleProg2 = (ProgressCircle) view.findViewById(R.id.workoutBar);
+
         if(DailyWorkouts != 0) {
             circleProg1.setMax(DailyWorkouts);
         }else{
@@ -95,7 +95,6 @@ public class MainFragment extends Fragment {
         });
         return view;
     }
-
 
     @Override
     public void onResume() {

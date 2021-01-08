@@ -5,23 +5,16 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import static android.content.Context.SENSOR_SERVICE;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link StepCounter#} factory method to
- * create an instance of this fragment.
- */
+
 public class StepCounter extends Fragment implements SensorEventListener, StepListener {
 
     private TextView textView;

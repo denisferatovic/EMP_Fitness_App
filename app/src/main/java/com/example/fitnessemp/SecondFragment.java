@@ -1,6 +1,5 @@
 package com.example.fitnessemp;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,22 +9,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.example.fitnessemp.AddExerciseFragment.Workout;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class SecondFragment extends Fragment {
 
@@ -33,6 +21,7 @@ public class SecondFragment extends Fragment {
     Button exercise;
     Button start;
     String key;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
