@@ -7,7 +7,6 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
     android.defaultConfig.vectorDrawables.useSupportLibrary = true
-    apply plugin: 'com.google.gms.google-services'  // Google Services plugin
 
     allprojects {
         repositories {
@@ -39,6 +38,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    apply plugin: 'com.android.application'
 }
 
 dependencies {
@@ -55,11 +56,8 @@ dependencies {
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:26.2.0')
     // Declare the dependency for the Realtime Database library
     // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-database'
-    implementation 'com.google.firebase:firebase-analytics'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-database:19.6.0'
     testImplementation 'junit:junit:4.+'

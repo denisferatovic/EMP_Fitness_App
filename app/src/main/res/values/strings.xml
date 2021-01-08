@@ -86,5 +86,6 @@
     <string name="warmup_video">Warmup video:</string>
     <string name="workouts">Workouts</string>
     <string name="steps">Steps</string>
+    <string name="back">Back</string>
 
 </resources>

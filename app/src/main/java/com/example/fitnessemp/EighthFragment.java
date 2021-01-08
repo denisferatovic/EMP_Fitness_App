@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import static com.example.fitnessemp.MainActivity.android_id;
-import static com.example.fitnessemp.MainActivity.mReference;
+import static com.example.fitnessemp.MainActivity.mDatabase;
 
 
 public class EighthFragment extends Fragment {
@@ -109,18 +109,20 @@ public class EighthFragment extends Fragment {
                 }
             }
         }
-
-        finishBtn = new Button(view.getContext());
-        finishBtn.setId(id);
-        finishBtn.setText("Finish");
-
-        finishBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveToDB();
-            }
-        });
-        myLayout.addView(finishBtn,layoutParams);
+        if(workouts.size() > 0){
+            finishBtn = new Button(view.getContext());
+            finishBtn.setId(id);
+            finishBtn.setText("Finish");
+        }
+        if(finishBtn != null){
+            finishBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    saveToDB();
+                }
+            });
+            myLayout.addView(finishBtn,layoutParams);
+        }
 
         back.setOnClickListener(arg0 -> {
             Fragment fragment = new SecondFragment();
@@ -149,7 +151,7 @@ public class EighthFragment extends Fragment {
 
                 if(e1.getText().equals("")||e2.getText().equals(""))
                     continue;
-                mReference.child(android_id+"/dates/"+date+"/workout").child(vaja).setValue(e1.getText().toString()+" x "+e2.getText().toString());
+                mDatabase.child(android_id+"/dates/"+date+"/workout").child(vaja).setValue(e1.getText().toString()+" x "+e2.getText().toString());
             }
             //Toast.makeText(ctx,"Finished workout",Toast.LENGTH_LONG).show();
             //Log.d("Database",mDatabase.child(date).toString());

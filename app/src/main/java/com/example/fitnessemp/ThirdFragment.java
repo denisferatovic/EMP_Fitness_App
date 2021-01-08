@@ -21,6 +21,8 @@ public class ThirdFragment extends Fragment {
         }
         view = inflater.inflate(R.layout.fragment_third, container, false);
 
+        System.out.println(MainActivity.workoutDays.get(2021));
+
         return view;
     }
 

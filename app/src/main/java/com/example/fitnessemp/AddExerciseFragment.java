@@ -1,5 +1,6 @@
 package com.example.fitnessemp;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,13 +9,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
-import static com.example.fitnessemp.MainActivity.mReference;
+import static com.example.fitnessemp.MainActivity.mDatabase;
 
 public class AddExerciseFragment extends Fragment {
 
@@ -22,6 +31,9 @@ public class AddExerciseFragment extends Fragment {
     Button mButton, backSecond;
     EditText mEdit;
     EditText set;
+    String TodayDate;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,12 +50,16 @@ public class AddExerciseFragment extends Fragment {
         mEdit   = view.findViewById(R.id.editTextTextMultiLine3);
         set   = view.findViewById(R.id.ime_seta);
 
+        //current date
+        TodayDate = MainActivity.TodayDate;
+
         //listener za button click
         mButton.setOnClickListener(view -> addExercise());
         backSecond.setOnClickListener(view -> goToSecond());
 
         return view;
     }
+
 
     public void addExercise(){
         //get string from inputs when Add exercise is clicked
@@ -64,7 +80,25 @@ public class AddExerciseFragment extends Fragment {
         Workout workout = new Workout(workoutSet,vaje);
 
         if(workout.isComplete()) {
-            mReference.child(MainActivity.android_id).child("vaje").child(workout.ime()).setValue(workout.vaje());
+            final String[] ime = {""};
+            String name = workout.ime();
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (snapshot.hasChild(name)) {
+                       ime[0] = name+name;
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            if(ime[0] != ""){
+                workout = new Workout(ime[0], workout.vaje());
+            }
+            mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(workout.ime()).setValue(workout.vaje());
             Toast.makeText(this.getContext(), "Exercise added to database!  ", Toast.LENGTH_LONG).show();
         }
         else {
@@ -87,7 +121,6 @@ public class AddExerciseFragment extends Fragment {
         public Workout(String ime, ArrayList vaje){
             this.ime_workout = ime;
             this.vaje = vaje;
-
         }
         public String ime(){
             return ime_workout;

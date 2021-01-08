@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -16,14 +15,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.navigation.NavigationView;
@@ -32,14 +29,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.example.fitnessemp.R.drawable.ic_hamburger;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LocationListener {
@@ -56,18 +51,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private LocationManager locationManager;
     public static Location onlyOneLocation;
     private final int REQUEST_FINE_LOCATION = 1234;
-    public static FirebaseDatabase mDatabase;
-    public static DatabaseReference mReference;
+    public static DatabaseReference mDatabase;
     public static int DailySteps,DailyWorkouts;
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String date;
-
+    public static String TodayDate;
     //test id
     //public static String android_id= "13"; //Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
-    static HashMap<String,AddExerciseFragment.Workout>  workouts = new HashMap<String,AddExerciseFragment.Workout>();
-    static HashMap<String,WorkoutDays> workoutDays = new HashMap<>();
+    public static HashMap<String,AddExerciseFragment.Workout>  workouts = new HashMap<String,AddExerciseFragment.Workout>();
+    public static HashMap<String,WorkoutDays> workoutDays = new HashMap<>();
     private String apikey = "AIzaSyBdOvTWvRNqdJAZzHRx8MyA69l9BK3mSJo";
 
 
@@ -77,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mDatabase = FirebaseDatabase.getInstance();
-        mReference = mDatabase.getReference();
+        //Set persistance Firebase
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
@@ -88,6 +82,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Places.initialize(getApplicationContext(), apikey);
         }
         PlacesClient placesClient = Places.createClient(this);
+
+        Calendar currentDate = Calendar.getInstance();
+        int Day = currentDate.get(Calendar.DAY_OF_MONTH);
+        int Year = currentDate.get(Calendar.YEAR);
+        int Month = currentDate.get(Calendar.MONTH) + 1;
+        TodayDate = String.valueOf(Year)+"/"+String.valueOf(Month)+"/"+String.valueOf(Day);
+
 
         android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
         //System.out.println(android_id); -> ga dobi!
@@ -103,8 +104,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.add(R.id.container_fragment, new MainFragment());
         fragmentTransaction.commit();
 
-
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_FINE_LOCATION);
         }
@@ -112,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //mDatabase.child(MainActivity.android_id).child("vaje").setValue(""); // reset db entries
 
-        mReference.addValueEventListener(new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -136,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.w("", "Failed to read value.", error.toException());
             }
         });
-        mReference.child(android_id+"/dates").addValueEventListener(new ValueEventListener() {
+        mDatabase.child(android_id+"/dates").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again

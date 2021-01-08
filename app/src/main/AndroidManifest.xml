@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.fitnessemp">
 
-    <uses-sdk
-        android:minSdkVersion="17"
-        android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -25,6 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitnessEMP">
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBdOvTWvRNqdJAZzHRx8MyA69l9BK3mSJo"/>
+        <meta-data android:name="com.google.firebase.database.FirebaseDatabase.API_KEY" android:value="AIzaSyC4R54yJRzb22ySyrhkUODQ--FknEPo3iA"/>
         <activity android:name=".MainActivity" android:theme="@style/Theme.FitnessEMP.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
