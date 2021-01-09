@@ -80,31 +80,35 @@ public class AddExerciseFragment extends Fragment {
         Workout workout = new Workout(workoutSet,vaje);
 
         if(workout.isComplete()) {
-            final String[] ime = {""};
             String name = workout.ime();
+
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
-                    if (snapshot.hasChild(name)) {
-                       ime[0] = name+name;
+                    if (snapshot.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(name).exists()) {
+                        mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(name+name).setValue(workout.vaje());
+
+                    }else{
+                        mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(workout.ime()).setValue(workout.vaje());
                     }
+
                 }
+
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
-            if(ime[0] != ""){
-                workout = new Workout(ime[0], workout.vaje());
-            }
-            mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(workout.ime()).setValue(workout.vaje());
             Toast.makeText(this.getContext(), "Exercise added to database!  ", Toast.LENGTH_LONG).show();
+
+
         }
         else {
             Log.d("Incomplete", "Attempted to add incomplete data to firebase");
             Toast.makeText(this.getContext(), "Incomplete data, fill out the whole form", Toast.LENGTH_LONG).show();
         }
+
         //go to parent fragment
         goToSecond();
 

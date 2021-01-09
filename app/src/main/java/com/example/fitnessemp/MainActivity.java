@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SimpleDateFormat dateFormat;
     private String date;
     public static String TodayDate;
+    public static int Day,Year,Month;
     //test id
     //public static String android_id= "13"; //Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
@@ -71,12 +72,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //Set persistance Firebase
         mDatabase = FirebaseDatabase.getInstance().getReference();
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
-
         //place search
         if(!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), apikey);
@@ -84,9 +83,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         PlacesClient placesClient = Places.createClient(this);
 
         Calendar currentDate = Calendar.getInstance();
-        int Day = currentDate.get(Calendar.DAY_OF_MONTH);
-        int Year = currentDate.get(Calendar.YEAR);
-        int Month = currentDate.get(Calendar.MONTH) + 1;
+        Day = currentDate.get(Calendar.DAY_OF_MONTH);
+        Year = currentDate.get(Calendar.YEAR);
+        Month = currentDate.get(Calendar.MONTH) + 1;
         TodayDate = String.valueOf(Year)+"/"+String.valueOf(Month)+"/"+String.valueOf(Day);
 
 
@@ -117,12 +116,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
 
-                if(dataSnapshot.child(android_id+"/vaje").exists()) {
-                    Iterator<DataSnapshot> it = dataSnapshot.child(android_id + "/vaje").getChildren().iterator();
+                if(dataSnapshot.child(android_id).child(TodayDate).child("vaje").child("Unfinished").exists()) {
+                    int i = 0;
+                    Iterator<DataSnapshot> it = dataSnapshot.child(android_id).child(TodayDate).child("vaje").child("Unfinished").getChildren().iterator();
                     while(it.hasNext()){
                         DataSnapshot snap = it.next();
-
-                        workouts.put(snap.getKey(),new AddExerciseFragment.Workout(snap.getKey(), (ArrayList) snap.getValue()));
+                        System.out.println(snap.child(String.valueOf(i)+":").getValue());
+                        workouts.put(snap.getKey(),new AddExerciseFragment.Workout(snap.getKey(), (ArrayList) snap.child(String.valueOf(i)+":").getValue()));
                     }
                 }
                 Log.d("DataChange", "Value is: " + workouts);
@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         mDatabase.child(android_id+"/dates").addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again

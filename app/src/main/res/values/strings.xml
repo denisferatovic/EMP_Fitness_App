@@ -87,5 +87,7 @@
     <string name="workouts">Workouts</string>
     <string name="steps">Steps</string>
     <string name="back">Back</string>
+    <string name="finish_exercise">Finish Exercise:</string>
+    <string name="finish_exercise1">Finish exercise</string>
 
 </resources>

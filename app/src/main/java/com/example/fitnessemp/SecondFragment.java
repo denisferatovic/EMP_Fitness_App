@@ -12,14 +12,21 @@ import android.widget.Spinner;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class SecondFragment extends Fragment {
 
     View view;
     Button exercise;
-    Button start;
+    Button start,finish;
     String key;
 
     @Nullable
@@ -55,10 +62,72 @@ public class SecondFragment extends Fragment {
 
             }
         });
+        finish = view.findViewById(R.id.finishExercise);
+        finish.setOnClickListener(view -> finishExercise());
+
+        Spinner s1 = (Spinner) view.findViewById(R.id.spinner2);
+        ArrayList<String> arraySpinner2 = new ArrayList<String>();
+        for(HashMap.Entry<String, AddExerciseFragment.Workout> entry : MainActivity.workouts.entrySet()){
+            arraySpinner2.add(entry.getValue().ime());
+        }
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(view.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, arraySpinner2);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s1.setAdapter(adapter2);
+        s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Dropdown",parent.getItemAtPosition(position).toString());
+                key=parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         start = view.findViewById(R.id.StartExercise);
         start.setOnClickListener(view -> goToExercise());
 
         return view;
+
+    }
+
+    // called when add exercise button is clicked
+    public void finishExercise(){
+        Log.d("Info", "Prsu v finishExercise");
+        MainActivity.workouts.remove(key);
+        System.out.println(key);
+        MainActivity.mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                DataSnapshot save = null;
+
+                if(dataSnapshot.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").exists()) {
+
+                    Iterator<DataSnapshot> it = dataSnapshot.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").getChildren().iterator();
+                    while(it.hasNext()){
+                        DataSnapshot snap = it.next();
+                        if(snap.hasChild(key))
+                             save = snap;
+                             System.out.println(snap.toString());
+                             MainActivity.mDatabase.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").child(key).removeValue();
+                             MainActivity.mDatabase.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Finished").child(key).setValue(snap.getValue());
+                    }
+                }
+                Log.d("DataChange", "Value is: " + MainActivity.workouts);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("", "Failed to read value.", error.toException());
+            }
+        });
 
     }
 

@@ -17,6 +17,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -112,7 +117,7 @@ public class EighthFragment extends Fragment {
         if(workouts.size() > 0){
             finishBtn = new Button(view.getContext());
             finishBtn.setId(id);
-            finishBtn.setText("Finish");
+            finishBtn.setText("Set");
         }
         if(finishBtn != null){
             finishBtn.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +147,7 @@ public class EighthFragment extends Fragment {
             dateFormat = new SimpleDateFormat("yyyyMMDD");
             date = dateFormat.format(calendar.getTime());
             Log.d("Date",date);
+            int[] finalI = {0};
             for(int i=1;i<id-1;i+=3) {
                 TextView t = view.findViewById(i);
                 TextView e1 = view.findViewById(i+1); //set
@@ -151,7 +157,25 @@ public class EighthFragment extends Fragment {
 
                 if(e1.getText().equals("")||e2.getText().equals(""))
                     continue;
-                mDatabase.child(android_id+"/dates/"+date+"/workout").child(vaja).setValue(e1.getText().toString()+" x "+e2.getText().toString());
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener()  {
+
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (snapshot.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").child(key).exists()) {
+                            mDatabase.child(android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").child(key).child(String.valueOf(finalI[0])).removeValue();
+                            mDatabase.child(android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").child(key).child(vaja).setValue(e1.getText().toString()+" x "+e2.getText().toString());
+                            finalI[0]++;
+                        }
+
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
             //Toast.makeText(ctx,"Finished workout",Toast.LENGTH_LONG).show();
             //Log.d("Database",mDatabase.child(date).toString());

@@ -13,7 +13,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class MainFragment extends Fragment {
 
@@ -71,6 +78,36 @@ public class MainFragment extends Fragment {
             circleProg2.setProgressWithAnimation(currentSteps);
         }
 
+        //mDatabase.child(MainActivity.android_id).child("vaje").setValue(""); // reset db entries
+        MainActivity.mDatabase.child("LOGEntries").child("LoggedIn").child(String.valueOf(MainActivity.Year)).setValue(String.valueOf(MainActivity.Month)+"."+String.valueOf(MainActivity.Day));
+
+        MainActivity.mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                int i  = 0;
+                if(dataSnapshot.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").exists()) {
+
+                    Iterator<DataSnapshot> it = dataSnapshot.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").getChildren().iterator();
+                    while(it.hasNext()){
+                        DataSnapshot snap = it.next();
+
+
+                        MainActivity.workouts.put(snap.getKey(),new AddExerciseFragment.Workout(snap.getKey(), (ArrayList) snap.getValue()));
+                    }
+                }
+                Log.d("DataChange", "Value is: " + MainActivity.workouts);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("", "Failed to read value.", error.toException());
+            }
+        });
+
 
         activeWorkoutContainer = view.findViewById(R.id.activeWorkoutsContainer);
         String novtext="";
@@ -93,6 +130,9 @@ public class MainFragment extends Fragment {
 
             }
         });
+
+
+
         return view;
     }
 
