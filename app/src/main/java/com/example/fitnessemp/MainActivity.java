@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Read from the database
 
         //mDatabase.child(MainActivity.android_id).child("vaje").setValue(""); // reset db entries
-
+        //mDatabase.child(android_id).child(MainActivity.TodayDate).child("vaje").setValue(""); //reset db entries
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -121,7 +121,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Iterator<DataSnapshot> it = dataSnapshot.child(android_id).child(TodayDate).child("vaje").child("Unfinished").getChildren().iterator();
                     while(it.hasNext()){
                         DataSnapshot snap = it.next();
-                        System.out.println(snap.child(String.valueOf(i)+":").getValue());
+
+                        Log.d("WorkoutsKey",snap.getChildren().iterator().next().getChildren().toString());
                         workouts.put(snap.getKey(),new AddExerciseFragment.Workout(snap.getKey(), (ArrayList) snap.child(String.valueOf(i)+":").getValue()));
                     }
                 }

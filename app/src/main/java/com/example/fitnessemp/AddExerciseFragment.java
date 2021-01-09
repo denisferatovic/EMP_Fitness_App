@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 import static com.example.fitnessemp.MainActivity.mDatabase;
@@ -118,7 +119,7 @@ public class AddExerciseFragment extends Fragment {
     public static class Workout {
         public String ime_workout;
         ArrayList<String> vaje = new ArrayList<String>();
-        public String [] opis_vaj; // ce se odlocmo dodati se opise k vajam
+        HashMap<String,Integer[]> sets,reps = new HashMap<>();
         public Workout(){
 
         }
