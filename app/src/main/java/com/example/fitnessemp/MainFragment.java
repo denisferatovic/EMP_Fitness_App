@@ -6,9 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -22,6 +27,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import static com.example.fitnessemp.MainActivity.TodayDate;
+import static com.example.fitnessemp.MainActivity.mDatabase;
+import static com.example.fitnessemp.MainActivity.workoutsOld;
+
 public class MainFragment extends Fragment {
 
     TextView activeWorkoutContainer;
@@ -31,6 +40,7 @@ public class MainFragment extends Fragment {
     ProgressBar stepProgress,workoutProgress;
     private int DailySteps, DailyWorkouts;
     private int currentSteps,currentWorkouts;
+    String key;
 
     View view;
 
@@ -49,8 +59,8 @@ public class MainFragment extends Fragment {
         currentWorkouts = MainActivity.ActiveWorkouts;
 
         //Daily progress circles
-        ProgressCircle circleProg1 = (ProgressCircle) view.findViewById(R.id.stepBar);
-        ProgressCircle circleProg2 = (ProgressCircle) view.findViewById(R.id.workoutBar);
+        ProgressCircle circleProg1 = (ProgressCircle) view.findViewById(R.id.workoutBar);
+        ProgressCircle circleProg2 = (ProgressCircle) view.findViewById(R.id.stepBar);
 
         if(DailyWorkouts != 0) {
             circleProg1.setMax(DailyWorkouts);
@@ -123,14 +133,63 @@ public class MainFragment extends Fragment {
         addExercise = view.findViewById(R.id.addExercise);
         activeWorkoutContainer.setMovementMethod(new ScrollingMovementMethod());
         setRetainInstance(true);
-        addExercise.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container_fragment, new SecondFragment());
-                fragmentTransaction.commit();
+
+        Spinner s1 = (Spinner) view.findViewById(R.id.spinner3);
+        ArrayList<String> arraySpinner2 = new ArrayList<String>();
+        for(HashMap.Entry<String, AddExerciseFragment.Workout> entry : MainActivity.workouts.entrySet()){
+            arraySpinner2.add(entry.getValue().ime());
+        }
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(view.getContext(),
+                android.R.layout.simple_spinner_dropdown_item, arraySpinner2);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s1.setAdapter(adapter2);
+        s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Dropdown",parent.getItemAtPosition(position).toString());
+                key=parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
+        addExercise.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(key != null) {
+                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+
+                            if (snapshot.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(key).exists()) {
+                                if (workoutsOld.size() > 0) {
+                                    for (String a : MainActivity.workoutsOld.get(key).vaje()) {
+                                        mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(key + key).child(a).setValue("");
+                                    }
+                                }
+                            } else {
+                                if (workoutsOld.size() > 0) {
+                                    for (String a : MainActivity.workoutsOld.get(key).vaje()) {
+                                        mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(key).child(a).setValue("");
+                                    }
+                                }
+                            }
+
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+        });
+
 
 
 
@@ -143,6 +202,15 @@ public class MainFragment extends Fragment {
         DailyWorkouts = MainActivity.DailyWorkouts;
         DailySteps = MainActivity.DailySteps;
         currentSteps = MainActivity.steps;
+    }
+
+    public void goToExercise(){
+        Log.d("Info", "Prsu v goToExercise");
+
+        Fragment fragment = new EighthFragment(key);
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container_fragment, fragment).commit();
     }
 
     @Override

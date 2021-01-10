@@ -41,7 +41,7 @@ public class SecondFragment extends Fragment {
         exercise = view.findViewById(R.id.addExercise2);
         exercise.setOnClickListener(view -> goToAddExercise());
 
-        Spinner s = (Spinner) view.findViewById(R.id.spinner);
+        Spinner s = (Spinner) view.findViewById(R.id.spinner1);
         ArrayList<String> arraySpinner = new ArrayList<String>();
         for(HashMap.Entry<String, AddExerciseFragment.Workout> entry : MainActivity.workouts.entrySet()){
             arraySpinner.add(entry.getValue().ime());
@@ -94,7 +94,7 @@ public class SecondFragment extends Fragment {
 
     }
 
-    // called when add exercise button is clicked
+    // called when finish exercise button is clicked
     public void finishExercise(){
         Log.d("Info", "Prsu v finishExercise");
         MainActivity.workouts.remove(key);
@@ -109,13 +109,15 @@ public class SecondFragment extends Fragment {
                 if(dataSnapshot.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").exists()) {
 
                     Iterator<DataSnapshot> it = dataSnapshot.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").getChildren().iterator();
-                    while(it.hasNext()){
+                    while(it.hasNext()) {
                         DataSnapshot snap = it.next();
-                        if(snap.hasChild(key))
-                             save = snap;
-                             System.out.println(snap.toString());
-                             MainActivity.mDatabase.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").child(key).removeValue();
-                             MainActivity.mDatabase.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Finished").child(key).setValue(snap.getValue());
+                        if (key != null) {
+                            if (snap.hasChild(key))
+                                save = snap;
+                            System.out.println(snap.toString());
+                            MainActivity.mDatabase.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").child(key).removeValue();
+                            MainActivity.mDatabase.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Finished").child(key).setValue(snap.getValue());
+                        }
                     }
                 }
                 Log.d("DataChange", "Value is: " + MainActivity.workouts);
