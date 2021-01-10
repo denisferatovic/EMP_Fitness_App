@@ -121,9 +121,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Iterator<DataSnapshot> it = dataSnapshot.child(android_id).child(TodayDate).child("vaje").child("Unfinished").getChildren().iterator();
                     while(it.hasNext()){
                         DataSnapshot snap = it.next();
+                        ArrayList<String> temp_vaje = new ArrayList<>();
+                        HashMap<String,Integer[]> temp_sets_reps= new HashMap<>();
+                        Log.d("WorkoutsKey",snap.getKey().toString());
 
-                        Log.d("WorkoutsKey",snap.getChildren().iterator().next().getChildren().toString());
-                        workouts.put(snap.getKey(),new AddExerciseFragment.Workout(snap.getKey(), (ArrayList) snap.child(String.valueOf(i)+":").getValue()));
+                        for(DataSnapshot a : snap.getChildren()){
+                            Log.d("WorkoutsValue",a.getKey().toString());
+                            temp_vaje.add(a.getKey().toString());
+                            if(!a.getValue().toString().equals("")) {
+                                Integer set = Integer.parseInt(a.getValue().toString().split(" x ")[0]);
+                                Integer rep = Integer.parseInt(a.getValue().toString().split(" x ")[1]);
+                                temp_sets_reps.put(a.getKey(), new Integer[]{set, rep});
+                                Log.d("Reps_sets_data",a.getKey()+" => "+rep+" + "+set);
+                            }
+
+                        }
+                        workouts.put(snap.getKey(),new AddExerciseFragment.Workout(snap.getKey(), temp_vaje,temp_sets_reps));
                     }
                 }
                 Log.d("DataChange", "Value is: " + workouts);
@@ -136,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.w("", "Failed to read value.", error.toException());
             }
         });
+        /*
         mDatabase.child(android_id+"/dates").addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -178,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.w("", "Failed to read value.", error.toException());
             }
         });
-
+*/
     }
     @Override
     public void onLocationChanged(Location location) {

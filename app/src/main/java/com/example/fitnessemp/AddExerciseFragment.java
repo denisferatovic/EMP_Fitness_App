@@ -87,10 +87,13 @@ public class AddExerciseFragment extends Fragment {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     if (snapshot.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(name).exists()) {
-                        mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(name+name).setValue(workout.vaje());
-
+                        for(String a : workout.vaje) {
+                            mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(name+name).child(a).setValue("");
+                        }
                     }else{
-                        mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(workout.ime()).setValue(workout.vaje());
+                        for(String a : workout.vaje) {
+                            mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(workout.ime()).child(a).setValue("");
+                        }
                     }
 
                 }
@@ -119,13 +122,27 @@ public class AddExerciseFragment extends Fragment {
     public static class Workout {
         public String ime_workout;
         ArrayList<String> vaje = new ArrayList<String>();
-        HashMap<String,Integer[]> sets,reps = new HashMap<>();
+        HashMap<String,Integer[]> vaja_sets_reps = new HashMap<>();
         public Workout(){
 
         }
         public Workout(String ime, ArrayList vaje){
             this.ime_workout = ime;
             this.vaje = vaje;
+        }
+        public Workout(String ime, ArrayList vaje, HashMap vaje_sets_reps){
+            this.ime_workout = ime;
+            this.vaje = vaje;
+            this.vaja_sets_reps = vaje_sets_reps;
+        }
+        public Integer [] getSetsReps(String key){
+            if(vaja_sets_reps.get(key) != null) {
+                return vaja_sets_reps.get(key);
+            }
+            return new Integer[] {};
+        }
+        public HashMap<String,Integer[]> getSetReps(){
+            return this.vaja_sets_reps;
         }
         public String ime(){
             return ime_workout;
@@ -138,13 +155,19 @@ public class AddExerciseFragment extends Fragment {
         }
         @Override
         public String toString(){
-            return ime_workout+" => " + vaje + " ";
+            return ime_workout+" => " + izpisVaj() + " ";
         }
         public String izpisVaj(){
             Iterator<String> it = this.vaje.iterator();
             String text="";
             while(it.hasNext()){
-                text = text.concat(it.next()+" ");
+                String next = it.next();
+                text = text.concat(next+" ");
+                if(vaja_sets_reps.get(next) != null){
+                    int a = vaja_sets_reps.get(next)[0];
+                    int b = vaja_sets_reps.get(next)[1];
+                    text = text.concat("->["+a+" "+b+"] ");
+                }
             }
             return text;
         }
