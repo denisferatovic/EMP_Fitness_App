@@ -38,7 +38,6 @@
         android:id="@+id/textView3"
         android:layout_width="80dp"
         android:layout_height="30dp"
-        android:background="@drawable/textviewborder"
         android:paddingStart="5dp"
         android:paddingTop="2dp"
         android:paddingEnd="5dp"

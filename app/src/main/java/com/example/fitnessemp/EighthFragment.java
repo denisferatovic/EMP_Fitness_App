@@ -130,7 +130,7 @@ public class EighthFragment extends Fragment {
         }
 
         back.setOnClickListener(arg0 -> {
-            Fragment fragment = new SecondFragment();
+            Fragment fragment = new CardsFragment();
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.container_fragment, fragment).commit();
