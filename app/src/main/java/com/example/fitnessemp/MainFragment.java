@@ -80,7 +80,7 @@ public class MainFragment extends Fragment {
 
         //mDatabase.child(MainActivity.android_id).child("vaje").setValue(""); // reset db entries
         MainActivity.mDatabase.child("LOGEntries").child("LoggedIn").child(String.valueOf(MainActivity.Year)).setValue(String.valueOf(MainActivity.Month)+"."+String.valueOf(MainActivity.Day));
-
+/*
         MainActivity.mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -93,8 +93,9 @@ public class MainFragment extends Fragment {
                     while(it.hasNext()){
                         DataSnapshot snap = it.next();
 
+                        Log.d("Snap", snap.getValue().toString());
 
-                        MainActivity.workouts.put(snap.getKey(),new AddExerciseFragment.Workout(snap.getKey(), (ArrayList) snap.getValue()));
+                        //MainActivity.workouts.put(snap.getKey(),new AddExerciseFragment.Workout(snap.getKey(), (ArrayList) snap.getValue()));
                     }
                 }
                 Log.d("DataChange", "Value is: " + MainActivity.workouts);
@@ -107,7 +108,7 @@ public class MainFragment extends Fragment {
                 Log.w("", "Failed to read value.", error.toException());
             }
         });
-
+*/
 
         activeWorkoutContainer = view.findViewById(R.id.activeWorkoutsContainer);
         String novtext="";
