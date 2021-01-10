@@ -93,5 +93,6 @@
     <string name="add_exercise2">Add exercise</string>
     <string name="select_previous_exercise">Select previous exercise:</string>
     <string name="select_exercise">Select exercise:</string>
+    <string name="next_graph">Next Graph</string>
 
 </resources>

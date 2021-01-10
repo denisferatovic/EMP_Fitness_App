@@ -6,6 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/next_graph"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#808E8E8E"
+        app:iconTint="#040303"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chartView"
+        app:strokeColor="#020202"
+        app:strokeWidth="2dp" />
+
     <TextView
         android:id="@+id/activeItems5"
         android:layout_width="wrap_content"
@@ -34,19 +49,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <com.github.mikephil.charting.charts.BarChart
+        android:layout_marginBottom="20dp"
+        android:id="@+id/chartView"
         android:layout_width="342dp"
         android:layout_height="282dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="110dp"
+        android:layout_margin="16dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="41dp"
-        android:layout_marginBottom="312dp"
         android:background="@drawable/textviewborder"
-        android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activeItems5"
-        app:srcCompat="@drawable/fit_graphs" />
+        app:layout_constraintTop_toBottomOf="@+id/activeItems5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
