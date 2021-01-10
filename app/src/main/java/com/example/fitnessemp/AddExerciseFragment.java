@@ -180,7 +180,7 @@ public class AddExerciseFragment extends Fragment {
 
     public void goToSecond(){
         Log.i("Info", "Prsu v goToAddExercise");
-        Fragment fragment = new SecondFragment();
+        Fragment fragment = new CardsFragment();
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container_fragment, fragment).commit();

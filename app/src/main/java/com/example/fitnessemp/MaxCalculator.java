@@ -75,7 +75,7 @@ public class MaxCalculator extends Fragment {
         w = (EditText)view.findViewById(R.id.steps);
         r = (EditText)view.findViewById(R.id.wrkouts);
         result = (TextView) view.findViewById(R.id.output);
-
+        System.out.println("clicked max");
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
