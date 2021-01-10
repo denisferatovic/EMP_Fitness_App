@@ -96,6 +96,16 @@ public class AddExerciseFragment extends Fragment {
                         }
                     }
 
+                    if(snapshot.child(MainActivity.android_id).child("vaje").child(name).exists()){
+                        for(String a : workout.vaje) {
+                            mDatabase.child(MainActivity.android_id).child("vaje").child(name+name).child(a).setValue("");
+                        }
+                    }else {
+                        for (String a : workout.vaje) {
+                            mDatabase.child(MainActivity.android_id).child("vaje").child(workout.ime()).child(a).setValue("");
+                        }
+                    }
+
                 }
 
 

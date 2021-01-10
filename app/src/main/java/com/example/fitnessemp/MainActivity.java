@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //public static String android_id= "13"; //Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
     public static HashMap<String,AddExerciseFragment.Workout>  workouts = new HashMap<String,AddExerciseFragment.Workout>();
+    public static HashMap<String,AddExerciseFragment.Workout>  workoutsOld = new HashMap<String,AddExerciseFragment.Workout>();
     public static HashMap<String,WorkoutDays> workoutDays = new HashMap<>();
     private String apikey = "AIzaSyBdOvTWvRNqdJAZzHRx8MyA69l9BK3mSJo";
 
@@ -128,7 +129,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         for(DataSnapshot a : snap.getChildren()){
                             Log.d("WorkoutsValue",a.getKey().toString());
                             temp_vaje.add(a.getKey().toString());
-                            if(!a.getValue().toString().equals("")) {
+                            if(a.getValue().toString().split(" x ").length==2) {
+                                Log.d("Vrednost_a",a.getValue().toString());
                                 Integer set = Integer.parseInt(a.getValue().toString().split(" x ")[0]);
                                 Integer rep = Integer.parseInt(a.getValue().toString().split(" x ")[1]);
                                 temp_sets_reps.put(a.getKey(), new Integer[]{set, rep});
@@ -139,7 +141,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         workouts.put(snap.getKey(),new AddExerciseFragment.Workout(snap.getKey(), temp_vaje,temp_sets_reps));
                     }
                 }
-                Log.d("DataChange", "Value is: " + workouts);
+                if(dataSnapshot.child(android_id).child("vaje").exists()){
+                    int i = 0;
+                    Iterator<DataSnapshot> it = dataSnapshot.child(android_id).child("vaje").getChildren().iterator();
+                    while(it.hasNext()){
+                        DataSnapshot snap = it.next();
+                        ArrayList<String> temp_vaje = new ArrayList<>();
+                        HashMap<String,Integer[]> temp_sets_reps= new HashMap<>();
+                        Log.d("WorkoutsKey",snap.getKey().toString());
+
+                        for(DataSnapshot a : snap.getChildren()){
+                            Log.d("WorkoutsValue",a.getKey().toString());
+                            temp_vaje.add(a.getKey().toString());
+                            System.out.println(a.getValue());
+                            if(!a.getValue().toString().equals("")) {
+                                Integer set = Integer.parseInt(a.getValue().toString().split(" x ")[0]);
+                                Integer rep = Integer.parseInt(a.getValue().toString().split(" x ")[1]);
+                                temp_sets_reps.put(a.getKey(), new Integer[]{set, rep});
+                                Log.d("Reps_sets_data",a.getKey()+" => "+rep+" + "+set);
+                            }
+
+                        }
+                        workoutsOld.put(snap.getKey(),new AddExerciseFragment.Workout(snap.getKey(), temp_vaje,temp_sets_reps));
+                    }
+
+                }
+                Log.d("DataChange", "Value is: " + workoutsOld);
 
             }
 

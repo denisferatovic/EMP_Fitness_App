@@ -89,5 +89,9 @@
     <string name="back">Back</string>
     <string name="finish_exercise">Finish Exercise:</string>
     <string name="finish_exercise1">Finish exercise</string>
+    <string name="add_previous_exercise">Add previous exercise</string>
+    <string name="add_exercise2">Add exercise</string>
+    <string name="select_previous_exercise">Select previous exercise:</string>
+    <string name="select_exercise">Select exercise:</string>
 
 </resources>
