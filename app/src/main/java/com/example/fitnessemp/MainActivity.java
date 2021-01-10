@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if(menuItem.getItemId() == R.id.maxCalulator){
             fragmentManager = getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_fragment, new MaxCalculator());
+            fragmentTransaction.replace(R.id.container_fragment, new CardsFragment());
             fragmentTransaction.commit();
             drawerLayout.closeDrawers();
 

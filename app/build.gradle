@@ -55,6 +55,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:15.0.0'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     // Import the BoM for the Firebase platform
     // Declare the dependency for the Realtime Database library
     // When using the BoM, you don't specify versions in Firebase library dependencies
