@@ -81,15 +81,12 @@ public class ThirdFragment extends Fragment {
                                 }
                             }
                             if (ds.getKey().equals("Finished")) {
-                                System.out.println("tu smo");
-
                                 vaje = "";
                                 calendar.set(MainActivity.Year, j - 1, i);
                                 eFinished.add(new EventDay(calendar, R.drawable.ic_check, Color.parseColor("#008000")));
-                                System.out.println(eFinished.toString());
                                 calendarView.setEvents(eFinished);
 
-                                for (DataSnapshot ds1 : dataSnapshot.child(date).child("vaje").child("Unfinished").getChildren()) {
+                                for (DataSnapshot ds1 : dataSnapshot.child(date).child("vaje").child("Finished").getChildren()) {
                                     vaje += ds1.getKey() + ", ";
                                 }
                                 if (!vaje.equals("")) {
@@ -141,18 +138,19 @@ public class ThirdFragment extends Fragment {
                     out += vUnfinished.get(eventDay);
                     out += "\n";
 
-                } else if (eFinished.contains(eventDay)) {
+                }
+                if (eFinished.contains(eventDay)) {
                     ou = true;
                     // inflate the layout of the popup window
                     inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     popupView = inflater.inflate(R.layout.popup, null);
-
                     // create the popup window
                     int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                     int height = LinearLayout.LayoutParams.WRAP_CONTENT;
                     boolean focusable = true; // lets taps outside the popup also dismiss it
                     popupWindow = new PopupWindow(popupView, width, height, focusable);
                     out += "Finished: ";
+                    System.out.println("joj");
                     out += vFinished.get(eventDay);
 
                 }
