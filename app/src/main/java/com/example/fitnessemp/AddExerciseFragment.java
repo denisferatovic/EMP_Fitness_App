@@ -135,7 +135,7 @@ public class AddExerciseFragment extends Fragment {
             this.vaje = vaje;
             this.vaja_sets_reps = vaje_sets_reps;
         }
-        public Integer [] getSetsReps(String key){
+        public Integer [] getSpecificSetsReps(String key){
             if(vaja_sets_reps.get(key) != null) {
                 return vaja_sets_reps.get(key);
             }
