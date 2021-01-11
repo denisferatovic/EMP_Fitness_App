@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -32,6 +36,7 @@ public class ThirdFragment extends Fragment {
 
     View view;
     Context ctx;
+    public static String CalendarDate;
 
     @Nullable
     @Override
@@ -47,6 +52,7 @@ public class ThirdFragment extends Fragment {
         HashMap<EventDay, String> vUnfinished = new HashMap<EventDay, String>();
         List<EventDay> eFinished = new ArrayList<>();
         HashMap<EventDay, String> vFinished = new HashMap<EventDay, String>();
+        CalendarDate = "";
 
         ctx = this.getContext();
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
@@ -112,6 +118,9 @@ public class ThirdFragment extends Fragment {
             public void onDayClick(EventDay eventDay) {
 
                 Calendar dateClick = eventDay.getCalendar();
+                Calendar date = Calendar.getInstance(Locale.getDefault());
+                Date today = date.getTime();
+
                 int Day = dateClick.get(Calendar.DAY_OF_MONTH);
                 int Year = dateClick.get(Calendar.YEAR);
                 int Month = dateClick.get(Calendar.MONTH) + 1;
@@ -157,17 +166,68 @@ public class ThirdFragment extends Fragment {
                 if (popupWindow != null && ou) {
                     TextView valueTV = popupView.findViewById(R.id.mojPrint);
                     valueTV.setText(out);
+                    Button add = popupView.findViewById(R.id.gumb);
+                    Button close = popupView.findViewById(R.id.close);
                     if (popupView != null) {
                         PopupWindow finalPopupWindow = popupWindow;
                         //show the popup window
                         // which view you pass in doesn't matter, it is only used for the window tolken
-                        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 150);
+                        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 190);
                         // dismiss the popup window when touched
+
+                        add.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                CalendarDate = String.valueOf(eventDay.getCalendar().YEAR) + "/" + String.valueOf(eventDay.getCalendar().MONTH + 1) + "/" + String.valueOf(eventDay.getCalendar().DAY_OF_MONTH);
+                                finalPopupWindow.dismiss();
+                                goToAddExercise();
+
+                            }
+                        });
                         popupView.setOnTouchListener(new View.OnTouchListener() {
                             @Override
                             public boolean onTouch(View v, MotionEvent event) {
                                 finalPopupWindow.dismiss();
                                 return true;
+                            }
+                        });
+                        close.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                finalPopupWindow.dismiss();
+                            }
+                        });
+                    }
+                }if(eventDay.getCalendar().getTime().after(today)){
+                    inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    popupView = inflater.inflate(R.layout.popup, null);
+                    // create the popup window
+                    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    boolean focusable = true; // lets taps outside the popup also dismiss it
+                    popupWindow = new PopupWindow(popupView, width, height, focusable);
+                    Button add = popupView.findViewById(R.id.gumb);
+                    Button close = popupView.findViewById(R.id.close);
+
+                    if (popupView != null) {
+                        PopupWindow finalPopupWindow = popupWindow;
+                        //show the popup window
+                        // which view you pass in doesn't matter, it is only used for the window tolken
+                        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 190);
+                        // dismiss the popup window when touched
+                        add.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                CalendarDate = String.valueOf(eventDay.getCalendar().YEAR) + "/" + String.valueOf(eventDay.getCalendar().MONTH + 1) + "/" + String.valueOf(eventDay.getCalendar().DAY_OF_MONTH);
+                                finalPopupWindow.dismiss();
+                                goToAddExercise();
+
+                            }
+                        });
+                        close.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                finalPopupWindow.dismiss();
                             }
                         });
                     }
@@ -178,6 +238,15 @@ public class ThirdFragment extends Fragment {
 
 
         return view;
+    }
+
+    // called when add exercise button is clicked
+    public void goToAddExercise(){
+        Log.d("Info", "Prsu v goToAddExercise");
+        Fragment fragment = new AddExerciseFragment();
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container_fragment, fragment).commit();
     }
 
     @Override

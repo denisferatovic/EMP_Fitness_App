@@ -4,7 +4,7 @@
         android:color="@color/black"
         android:width="2dp"
         />
-    <solid android:color="@color/lgray"/>
+    <solid android:color="@color/quantum_grey"/>
     <corners android:radius="8dp"/>
 
 

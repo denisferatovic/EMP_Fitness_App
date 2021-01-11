@@ -5,8 +5,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -83,7 +86,21 @@ public class CardsFragment extends Fragment {
 
         adapter = new Adapter(getActivity(),MainActivity.workouts);
         recyclerView.setAdapter(adapter);
+
+        /* // Reload current fragment
+        Fragment fragment = null;
+        fragment = getFragmentManager().findFragmentByTag("CardsFragment");
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if(fragment!= null) {
+            ft.detach(fragment);
+            ft.attach(fragment);
+            ft.commit();
+        }
+         */
+
         addExercise = (Button)view.findViewById(R.id.addExercise);
+        setMargins(addExercise, 10, 10, 10, 200);
+        addExercise.bringToFront();
         addExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,4 +111,13 @@ public class CardsFragment extends Fragment {
             }
         });
     }
+
+    private void setMargins (View view, int left, int top, int right, int bottom) {
+        if (view.getLayoutParams() instanceof RelativeLayout.MarginLayoutParams) {
+            RelativeLayout.MarginLayoutParams p = (RelativeLayout.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(left, top, right, bottom);
+            view.requestLayout();
+        }
+    }
+
 }

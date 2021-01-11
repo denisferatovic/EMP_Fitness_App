@@ -77,7 +77,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     @Override
                     public void onClick(View v) {
                         finishExercise(e);
-                        MainActivity.workouts.remove(e);
                     }
                 });
                 w.izpisVaj();
@@ -157,6 +156,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
                     Iterator<DataSnapshot> it = dataSnapshot.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").getChildren().iterator();
                     while (it.hasNext()) {
+                        System.out.println(key);
                         DataSnapshot snap = it.next();
                         if (key != null) {
                             if (snap.hasChild(key))
@@ -164,6 +164,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                             System.out.println(snap.toString());
                             MainActivity.mDatabase.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").child(key).removeValue();
                             MainActivity.mDatabase.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Finished").child(key).setValue(snap.getValue());
+                            MainActivity.FinishedWorkouts++;
                         }
                     }
                 }

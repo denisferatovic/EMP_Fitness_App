@@ -243,7 +243,7 @@ public class FourthFragment extends Fragment {
         chart.notifyDataSetChanged();
         chart.invalidate();
         Description title = new Description();
-        title.setText(label);
+        title.setText("");
         chart.setDescription(title);
     }
 

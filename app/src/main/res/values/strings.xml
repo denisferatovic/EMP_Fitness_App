@@ -90,9 +90,15 @@
     <string name="finish_exercise">Finish Exercise:</string>
     <string name="finish_exercise1">Finish exercise</string>
     <string name="add_previous_exercise">Add previous exercise</string>
-    <string name="add_exercise2">Add exercise</string>
+    <string name="add_exercise3">Add exercise</string>
     <string name="select_previous_exercise">Select previous exercise:</string>
     <string name="select_exercise">Select exercise:</string>
     <string name="next_graph">Next Graph</string>
+    <string name="add_exercise2">Add exercise</string>
+    <string name="open1">OPEN</string>
+    <string name="finish">FINISH</string>
+    <string name="pic">pic</string>
+    <string name="step_counter1">Step Counter:</string>
+    <string name="calculate_max_lift1">Calculate Max Lift:</string>
 
 </resources>

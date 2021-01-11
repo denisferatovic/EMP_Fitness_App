@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -117,6 +118,18 @@ public class SecondFragment extends Fragment {
                             System.out.println(snap.toString());
                             MainActivity.mDatabase.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").child(key).removeValue();
                             MainActivity.mDatabase.child(MainActivity.android_id).child(MainActivity.TodayDate).child("vaje").child("Finished").child(key).setValue(snap.getValue());
+
+                            /*
+                            // Reload current fragment
+                            Fragment fragment = null;
+                            fragment = getFragmentManager().findFragmentByTag("SecondFragment");
+                            final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            if(fragment!= null) {
+                                ft.detach(fragment);
+                                ft.attach(fragment);
+                                ft.commit();
+                            }
+                             */
                         }
                     }
                 }

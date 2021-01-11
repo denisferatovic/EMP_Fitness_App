@@ -58,6 +58,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="67dp"
         android:text="@string/set"
+        android:textColor="@drawable/buttoncolor"
+        app:backgroundTint="#808E8E8E"
+        app:iconTint="#040303"
+        app:strokeColor="#020202"
+        app:strokeWidth="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wrkouts" />

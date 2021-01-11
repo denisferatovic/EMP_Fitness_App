@@ -71,24 +71,26 @@ public class NinthFragment extends Fragment {
         super.onResume();
         if(MainActivity.DailySteps != 0) {
             steps.setText(String.valueOf(MainActivity.DailySteps));
+            this.DailySteps = MainActivity.DailySteps;
         }
         if(MainActivity.DailyWorkouts != 0) {
             workouts.setText(String.valueOf(MainActivity.DailyWorkouts));
+            this.DailyWorkouts = MainActivity.DailyWorkouts;
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MainActivity.DailySteps = DailySteps;
-        MainActivity.DailyWorkouts = DailyWorkouts;
+        MainActivity.DailySteps = this.DailySteps;
+        MainActivity.DailyWorkouts = this.DailyWorkouts;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        MainActivity.DailySteps = DailySteps;
-        MainActivity.DailyWorkouts = DailyWorkouts;
+        MainActivity.DailySteps = this.DailySteps;
+        MainActivity.DailyWorkouts = this.DailyWorkouts;
     }
 
     @Override

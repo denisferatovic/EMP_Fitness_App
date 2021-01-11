@@ -56,11 +56,18 @@ public class MainFragment extends Fragment {
         DailySteps = MainActivity.DailySteps;
         DailyWorkouts = MainActivity.DailyWorkouts;
         currentSteps = MainActivity.steps;
-        currentWorkouts = MainActivity.ActiveWorkouts;
+        currentWorkouts = MainActivity.FinishedWorkouts;
 
         //Daily progress circles
         ProgressCircle circleProg1 = (ProgressCircle) view.findViewById(R.id.workoutBar);
         ProgressCircle circleProg2 = (ProgressCircle) view.findViewById(R.id.stepBar);
+
+        System.out.println(DailySteps);
+        System.out.println(DailyWorkouts);
+        System.out.println(currentSteps);
+        System.out.println(currentWorkouts);
+
+
 
         if(DailyWorkouts != 0) {
             circleProg1.setMax(DailyWorkouts);
@@ -89,8 +96,10 @@ public class MainFragment extends Fragment {
         }
 
         //mDatabase.child(MainActivity.android_id).child("vaje").setValue(""); // reset db entries
-        MainActivity.mDatabase.child("LOGEntries").child("LoggedIn").child(String.valueOf(MainActivity.Year)).setValue(String.valueOf(MainActivity.Month)+"."+String.valueOf(MainActivity.Day));
-/*
+        MainActivity.mDatabase.child("LOGEntries").child("LoggedIn").child(String.valueOf(MainActivity.Year)).child(String.valueOf(MainActivity.Month)).child(String.valueOf(MainActivity.Day)).setValue("Logged");
+
+
+        /*
         MainActivity.mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -133,7 +142,17 @@ public class MainFragment extends Fragment {
         addExercise = view.findViewById(R.id.addExercise);
         activeWorkoutContainer.setMovementMethod(new ScrollingMovementMethod());
         setRetainInstance(true);
-
+        /*
+        // Reload current fragment
+        Fragment fragment = null;
+        fragment = getFragmentManager().findFragmentByTag("MainFragment");
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if(fragment!= null) {
+            ft.detach(fragment);
+            ft.attach(fragment);
+            ft.commit();
+        }
+         */
         Spinner s1 = (Spinner) view.findViewById(R.id.spinner3);
         ArrayList<String> arraySpinner2 = new ArrayList<String>();
         for(HashMap.Entry<String, AddExerciseFragment.Workout> entry : MainActivity.workouts.entrySet()){
@@ -166,20 +185,23 @@ public class MainFragment extends Fragment {
 
                             if (snapshot.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(key).exists()) {
                                 if (workoutsOld.size() > 0) {
-                                    for (String a : MainActivity.workoutsOld.get(key).vaje()) {
-                                        mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(key + key).child(a).setValue("");
+                                    if(MainActivity.workoutsOld.get(key) != null) {
+                                        for (String a : MainActivity.workoutsOld.get(key).vaje()) {
+                                            mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(key + key).child(a).setValue("");
+                                        }
                                     }
                                 }
                             } else {
                                 if (workoutsOld.size() > 0) {
-                                    for (String a : MainActivity.workoutsOld.get(key).vaje()) {
-                                        mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(key).child(a).setValue("");
+                                    if(MainActivity.workoutsOld.get(key) != null) {
+                                        for (String a : MainActivity.workoutsOld.get(key).vaje()) {
+                                            mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(key).child(a).setValue("");
+                                        }
                                     }
                                 }
                             }
 
                         }
-
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
@@ -191,10 +213,10 @@ public class MainFragment extends Fragment {
         });
 
 
-
-
         return view;
+
     }
+
 
     @Override
     public void onResume() {
@@ -204,14 +226,6 @@ public class MainFragment extends Fragment {
         currentSteps = MainActivity.steps;
     }
 
-    public void goToExercise(){
-        Log.d("Info", "Prsu v goToExercise");
-
-        Fragment fragment = new EighthFragment(key);
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container_fragment, fragment).commit();
-    }
 
     @Override
     public void onDestroy() {

@@ -7,11 +7,28 @@
     android:layout_height="match_parent"
     tools:context=".MaxCalculator">
 
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/textviewborderdark"
+        android:gravity="start"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="Set Exercise"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlCompat" />
+
     <Button
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="350dp"
         android:layout_marginEnd="8dp"
         android:text="@string/back"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,9 +48,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="fill"
             android:orientation="vertical"
-            android:paddingBottom="?attr/actionBarSize"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp">
+            android:paddingRight="5dp"
+            android:paddingBottom="?attr/actionBarSize">
 
         </LinearLayout>
 

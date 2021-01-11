@@ -2,9 +2,15 @@ package com.example.fitnessemp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import android.text.InputType;
@@ -18,10 +24,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -41,7 +51,7 @@ public class EighthFragment extends Fragment {
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String date;
-    private Button finishBtn;
+    private MaterialButton finishBtn;
     private View view;
     private int id;
     public EighthFragment(String key) {
@@ -71,6 +81,7 @@ public class EighthFragment extends Fragment {
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("ResourceType")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -115,9 +126,19 @@ public class EighthFragment extends Fragment {
             }
         }
         if(workouts.size() > 0){
-            finishBtn = new Button(view.getContext());
+            finishBtn = new MaterialButton(view.getContext());
             finishBtn.setId(id);
             finishBtn.setText("Set");
+            finishBtn.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#020202")));
+            finishBtn.setStrokeWidth(2);
+            finishBtn.setBackgroundColor(Color.parseColor("#808E8E8E"));
+            try {
+                finishBtn.setTextColor(ColorStateList.createFromXml(getResources(),getResources().getXml(R.color.tint)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (XmlPullParserException e) {
+                e.printStackTrace();
+            }
         }
         if(finishBtn != null){
             finishBtn.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +160,7 @@ public class EighthFragment extends Fragment {
 
 
     }
+
     public void saveToDB(){
             // TO DO: TUKAJ SHRANIS V BAZO
             Log.d("Button","clicked");

@@ -13,7 +13,7 @@
         android:layout_marginStart="190dp"
         android:layout_marginTop="32dp"
         android:text="@string/next_graph"
-        android:textColor="#FFFFFF"
+        android:textColor="@drawable/buttoncolor"
         app:backgroundTint="#808E8E8E"
         app:iconTint="#040303"
         app:layout_constraintStart_toStartOf="parent"

@@ -12,12 +12,12 @@
         android:id="@+id/max_calculator_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/calculate_max_lift"
+        android:text="@string/calculate_max_lift1"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/steps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="30sp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -47,7 +47,8 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.492" />
+        app:layout_constraintVertical_bias="0.492"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/wrkouts"
@@ -64,18 +65,25 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/steps"
-        app:layout_constraintVertical_bias="0.285" />
+        app:layout_constraintVertical_bias="0.285"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/setG"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/calculate"
+        android:textColor="@drawable/buttoncolor"
+        app:backgroundTint="#808E8E8E"
+        app:iconTint="#040303"
+        app:strokeColor="#020202"
+        app:strokeWidth="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/output"
-        app:layout_constraintVertical_bias="0.244" />
+        app:layout_constraintVertical_bias="0.285"
+       />
 
     <TextView
         android:id="@+id/output"
@@ -85,6 +93,9 @@
         android:paddingEnd="5dp"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:background="@drawable/textviewborder"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

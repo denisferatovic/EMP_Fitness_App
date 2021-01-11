@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static FragmentManager fragmentManager;
     public static FragmentTransaction fragmentTransaction;
     public static int seconds;
-    public static int steps,ActiveWorkouts;
+    public static int steps,FinishedWorkouts;
     public static String android_id;
     private LocationManager locationManager;
     public static Location onlyOneLocation;
