@@ -1,5 +1,6 @@
 package com.example.fitnessemp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -40,7 +41,9 @@ public class MainFragment extends Fragment {
     ProgressBar stepProgress,workoutProgress;
     private int DailySteps, DailyWorkouts;
     private int currentSteps,currentWorkouts;
+    Context ctx;
     String key;
+    int i = 0;
 
     View view;
 
@@ -48,15 +51,17 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (view != null) {
-            if ((ViewGroup)view.getParent() != null)
-                ((ViewGroup)view.getParent()).removeView(view);
+            if ((ViewGroup) view.getParent() != null)
+                ((ViewGroup) view.getParent()).removeView(view);
             return view;
         }
+
         view = inflater.inflate(R.layout.fragment_main, container, false);
         DailySteps = MainActivity.DailySteps;
         DailyWorkouts = MainActivity.DailyWorkouts;
         currentSteps = MainActivity.steps;
         currentWorkouts = MainActivity.FinishedWorkouts;
+        ctx = this.getContext();
 
         //Daily progress circles
         ProgressCircle circleProg1 = (ProgressCircle) view.findViewById(R.id.workoutBar);
@@ -142,6 +147,7 @@ public class MainFragment extends Fragment {
         addExercise = view.findViewById(R.id.addExercise);
         activeWorkoutContainer.setMovementMethod(new ScrollingMovementMethod());
         setRetainInstance(true);
+
         /*
         // Reload current fragment
         Fragment fragment = null;

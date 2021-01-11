@@ -66,6 +66,8 @@ public class SixthFragment extends Fragment implements OnMapReadyCallback {
     double Longitude,Latitude,mLatitude,myLongitude;
     Geocoder geocoder;
     private Context ctx;
+    float zoomLevel = 12.0f; //This goes up to 21
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
@@ -100,7 +102,7 @@ public class SixthFragment extends Fragment implements OnMapReadyCallback {
                     }
 
                     latLng = new LatLng(addressList.get(0).getLatitude(), addressList.get(0).getLongitude());
-                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
                     mLatitude = addressList.get(0).getLatitude();
                     myLongitude = addressList.get(0).getLongitude();
                     counter++;
@@ -133,7 +135,7 @@ public class SixthFragment extends Fragment implements OnMapReadyCallback {
         if(counter == 0){
             if(map!=null && myLocation!=null && !myLocation.equals("")){
                 latLng = new LatLng(Latitude,Longitude);
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
                 counter++;
             }
         }
