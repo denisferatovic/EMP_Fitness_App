@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         for(DataSnapshot a : snap.getChildren()){
                             Log.d("WorkoutsValue",a.getKey().toString());
                             temp_vaje.add(a.getKey().toString());
-                            if(a.getValue().toString().split(" x ").length==2) {
+                            if(a.getValue().toString().split(" x ").length==2 && !a.getValue().toString().split(" x ")[1].equals("")) {
                                 Log.d("Vrednost_a",a.getValue().toString());
                                 Integer set = Integer.parseInt(a.getValue().toString().split(" x ")[0]);
                                 Integer rep = Integer.parseInt(a.getValue().toString().split(" x ")[1]);
