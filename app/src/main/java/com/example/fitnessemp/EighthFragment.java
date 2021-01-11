@@ -138,6 +138,8 @@ public class EighthFragment extends Fragment {
             finishBtn.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#020202")));
             finishBtn.setStrokeWidth(2);
             finishBtn.setBackgroundColor(Color.parseColor("#808E8E8E"));
+            setMargins(finishBtn, 10, 10, 10, 200);
+            finishBtn.bringToFront();
             try {
                 finishBtn.setTextColor(ColorStateList.createFromXml(getResources(),getResources().getXml(R.color.tint)));
             } catch (IOException e) {
@@ -156,6 +158,7 @@ public class EighthFragment extends Fragment {
             myLayout.addView(finishBtn,layoutParams);
         }
 
+        back.bringToFront();
         back.setOnClickListener(arg0 -> {
             Fragment fragment = new CardsFragment();
             // Insert the fragment by replacing any existing fragment
