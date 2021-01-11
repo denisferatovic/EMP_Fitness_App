@@ -56,7 +56,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             String e = entry.getKey();
             AddExerciseFragment.Workout w = entry.getValue();
             if (stevec == position) {
-                holder.setVaj.setText("Skupina vaj: " + e);
+                holder.setVaj.setText("Exercise group: " + e);
                 holder.open.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -81,8 +81,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 });
                 w.izpisVaj();
                 for (String vaje : w.vaje) {
-                    s.append("Vaja: " + vaje + "\n");
-                    holder.vaja.setText("Vaja: " + vaje + "\n");
+                    s.append("Exercises: " + vaje + "\n");
+                    holder.vaja.setText("Exercises: " + vaje + "\n");
                 }
             }
             stevec++;

@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
@@ -123,6 +124,7 @@ public class EighthFragment extends Fragment {
                     myLayout.addView(s,layoutParams);
                     myLayout.addView(r,layoutParams);
                 }
+                setMargins(myLayout, 10, 150, 10, 10);
             }
         }
         if(workouts.size() > 0){
@@ -159,6 +161,14 @@ public class EighthFragment extends Fragment {
         });
 
 
+    }
+
+    private void setMargins (View view, int left, int top, int right, int bottom) {
+        if (view.getLayoutParams() instanceof RelativeLayout.MarginLayoutParams) {
+            RelativeLayout.MarginLayoutParams p = (RelativeLayout.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(left, top, right, bottom);
+            view.requestLayout();
+        }
     }
 
     public void saveToDB(){
