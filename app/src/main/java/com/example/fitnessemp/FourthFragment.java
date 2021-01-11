@@ -207,7 +207,7 @@ public class FourthFragment extends Fragment {
         BarData data = new BarData(dataSets);
         data.setValueTextColor(Color.DKGRAY);
         data.setDrawValues(false);
-        chart.setNoDataText("Not enough monthly exercises");
+        chart.setNoDataText("");
         chart.setTouchEnabled(false);
         XAxis xAxis = chart.getXAxis();
 

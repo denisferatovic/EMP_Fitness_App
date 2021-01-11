@@ -79,6 +79,7 @@
         android:paddingEnd="5dp"
         android:paddingBottom="2dp"
         android:scrollbars="vertical"
+        android:maxLines="100"
         android:text="@string/active_workouts_here"
         app:layout_constraintBottom_toTopOf="@+id/addExercise"
         app:layout_constraintStart_toStartOf="parent"

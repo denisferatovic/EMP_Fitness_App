@@ -142,6 +142,9 @@ public class MainFragment extends Fragment {
 
         addExercise = view.findViewById(R.id.addExercise);
         activeWorkoutContainer.setMovementMethod(new ScrollingMovementMethod());
+        while (activeWorkoutContainer.canScrollVertically(1)) {
+            activeWorkoutContainer.scrollBy(0, 10);
+        }
         setRetainInstance(true);
 
         /*
@@ -158,14 +161,17 @@ public class MainFragment extends Fragment {
 
         Spinner s1 = (Spinner) view.findViewById(R.id.spinner3);
         ArrayList<String> arraySpinner2 = new ArrayList<String>();
+
         for(HashMap.Entry<String, AddExerciseFragment.Workout> entry : MainActivity.workouts.entrySet()){
             arraySpinner2.add(entry.getValue().ime());
         }
+
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(view.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, arraySpinner2);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s1.setAdapter(adapter2);
         s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("Dropdown",parent.getItemAtPosition(position).toString());

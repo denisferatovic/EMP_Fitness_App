@@ -22,6 +22,7 @@ public class FifthFragment extends Fragment {
     String currentTime = "";
     int lapNum = 0;
     TextView lapContainer, timeView;
+    String PreviousLap;
 
     View view;
 
@@ -124,12 +125,19 @@ public class FifthFragment extends Fragment {
         seconds = 0;
         lapContainer.setText("");
         lapNum = 0;
+        lapText="";
     }
     public void onClickLap(){
         lapNum++;
         String append = lapText + "Lap " + lapNum +": "+ currentTime +"\n";
         lapText += "Lap " + lapNum +": "+ currentTime +"\n";
         lapContainer.setText(append);
+        if(lapNum!=1) {
+            lapContainer.setMovementMethod(new ScrollingMovementMethod());
+            while (lapContainer.canScrollVertically(1)) {
+                lapContainer.scrollBy(0, 10);
+            }
+        }
     }
 
     private void runTimer(){
