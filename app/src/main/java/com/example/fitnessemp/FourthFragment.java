@@ -61,7 +61,10 @@ public class FourthFragment extends Fragment {
                 String dateF = "";
                 String dateUF = "";
                 String vaje = "";
+                dataset = new ArrayList<>();
+
                 if(count == 0) {
+                    count++;
                     for (int i = 1; i < maxDays; i++) {
                         String date = String.valueOf(MainActivity.Year) + "/";
                         date += MainActivity.Month + "/" + i;
@@ -90,10 +93,8 @@ public class FourthFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
+
         };
-
-        count++;
-
 
         Referenca.addListenerForSingleValueEvent(eventListener);
 
@@ -102,15 +103,15 @@ public class FourthFragment extends Fragment {
             public void onClick(View v) {
                 if (count % 2 != 0) {
                     chart.clear();
-                    dataset = new ArrayList<>();
                     DatabaseReference Referenca = MainActivity.mDatabase.getDatabase().getReference(MainActivity.android_id);
 
-                    ValueEventListener eventListener = new ValueEventListener() {
+                    ValueEventListener eventListener1 = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String dateF = "";
                             String dateUF = "";
                             String vaje = "";
+                            dataset = new ArrayList<>();
 
                             for (int i = 1; i < maxDays; i++) {
                                 String date = String.valueOf(MainActivity.Year) + "/";
@@ -142,20 +143,21 @@ public class FourthFragment extends Fragment {
                     };
 
 
-                    Referenca.addListenerForSingleValueEvent(eventListener);
-
+                    Referenca.addListenerForSingleValueEvent(eventListener1);
                     count++;
 
-                }if(count % 2 == 0){
+
+                }else if(count % 2 == 0){
                     chart.clear();
                     DatabaseReference Referenca = MainActivity.mDatabase.getDatabase().getReference(MainActivity.android_id);
 
-                    ValueEventListener eventListener = new ValueEventListener() {
+                    ValueEventListener eventListener2 = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String dateF = "";
                             String dateUF = "";
                             String vaje = "";
+                            dataset = new ArrayList<>();
 
                             for (int i = 1; i < maxDays; i++) {
                                 String date = String.valueOf(MainActivity.Year) + "/";
@@ -185,14 +187,13 @@ public class FourthFragment extends Fragment {
                         public void onCancelled(DatabaseError databaseError) {
                         }
                     };
+                    Referenca.addListenerForSingleValueEvent(eventListener2);
                     count++;
-                    Referenca.addListenerForSingleValueEvent(eventListener);
 
                 }
 
             }
         });
-
 
         return view;
     }
