@@ -96,9 +96,15 @@
     <string name="next_graph">Next Graph</string>
     <string name="add_exercise2">Add exercise</string>
     <string name="open1">OPEN</string>
-    <string name="finish">FINISH</string>
+    <string name="finish1">FINISH</string>
     <string name="pic">pic</string>
     <string name="step_counter1">Step Counter:</string>
     <string name="calculate_max_lift1">Calculate Max Lift:</string>
+    <string name="set_exercise">Set Exercise</string>
+    <string name="list_the_desired_exercises_each_in_separate_row">List the desired exercises (each in separate row)</string>
+    <string name="name_of_exercise_set">Name of exercise set</string>
+    <string name="finish">FINISH</string>
+    <string name="image">image</string>
+    <string name="max_lift_calculator">Max Lift Calculator</string>
 
 </resources>

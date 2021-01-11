@@ -20,7 +20,7 @@
     <item
         android:id="@+id/maxCalulator"
         android:icon="@drawable/max_icon"
-        android:title="@string/max_calculator" />
+        android:title="@string/max_lift_calculator" />
     <item
         android:id="@+id/koledar"
         android:icon="@drawable/fit_calendar"

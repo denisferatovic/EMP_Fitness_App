@@ -21,8 +21,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
@@ -93,7 +95,8 @@ public class EighthFragment extends Fragment {
         LinearLayout myLayout = view.findViewById(R.id.items);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(30, 20, 30, 20);
+        ScrollView scroll = (ScrollView) view.findViewById(R.id.scrollView2);
+        layoutParams.setMargins(30, 20, 30, 30);
 
         id=1;
         for (Map.Entry<String, AddExerciseFragment.Workout> entry : workouts.entrySet()) {
@@ -124,7 +127,13 @@ public class EighthFragment extends Fragment {
                     myLayout.addView(s,layoutParams);
                     myLayout.addView(r,layoutParams);
                 }
-                setMargins(myLayout, 10, 150, 10, 10);
+                setMargins(myLayout, 10, 150, 10, 50);
+                scroll.postDelayed(new Runnable() {
+                    public void run() {
+                        scroll.fullScroll(ScrollView.FOCUS_RIGHT);
+                    }
+                }, 100L);
+
             }
         }
         if(workouts.size() > 0){

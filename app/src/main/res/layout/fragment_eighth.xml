@@ -16,7 +16,7 @@
         android:gravity="start"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
-        android:text="Set Exercise"
+        android:text="@string/set_exercise"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="25sp"

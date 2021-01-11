@@ -76,7 +76,7 @@
         android:background="@drawable/textviewborder"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="List the desired exercises (each in separate row)"
+        android:hint="@string/list_the_desired_exercises_each_in_separate_row"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
         android:paddingStart="5dp"
@@ -95,11 +95,12 @@
         android:paddingBottom="2dp"
         android:background="@drawable/textviewborder"
         android:ems="10"
-        android:hint="Name of exercise set"
+        android:hint="@string/name_of_exercise_set"
         android:inputType="textPersonName"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
