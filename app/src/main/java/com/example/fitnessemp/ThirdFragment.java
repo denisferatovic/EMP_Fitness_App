@@ -33,7 +33,11 @@ public class ThirdFragment extends Fragment {
 
     View view;
     Context ctx;
-    public static String CalendarDate;
+    String CalendarDate;
+    List<EventDay> eUnfinished = new ArrayList<>();
+    HashMap<EventDay, String> vUnfinished = new HashMap<EventDay, String>();
+    List<EventDay> eFinished = new ArrayList<>();
+    HashMap<EventDay, String> vFinished = new HashMap<EventDay, String>();
 
     @Nullable
     @Override
@@ -45,10 +49,7 @@ public class ThirdFragment extends Fragment {
         }
         view = inflater.inflate(R.layout.fragment_third, container, false);
 
-        List<EventDay> eUnfinished = new ArrayList<>();
-        HashMap<EventDay, String> vUnfinished = new HashMap<EventDay, String>();
-        List<EventDay> eFinished = new ArrayList<>();
-        HashMap<EventDay, String> vFinished = new HashMap<EventDay, String>();
+
         CalendarDate = "";
 
         ctx = this.getContext();
@@ -57,6 +58,9 @@ public class ThirdFragment extends Fragment {
         calendarView.setDate(calendar.getTime());
 
         DatabaseReference Referenca = MainActivity.mDatabase.getDatabase().getReference(MainActivity.android_id);
+
+        eUnfinished = MainActivity.eUnfinished;
+        eFinished = MainActivity.eFinished;
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
@@ -70,29 +74,35 @@ public class ThirdFragment extends Fragment {
                         String date = String.valueOf(MainActivity.Year) + "/";
                         date += j + "/" + i;
                         for (DataSnapshot ds : dataSnapshot.child(date).child("vaje").getChildren()) {
+                            System.out.println(date);
                             if (ds.getKey().equals("Unfinished")) {
                                 vaje = "";
+                                Calendar calendar = Calendar.getInstance(Locale.getDefault());
                                 calendar.set(MainActivity.Year, j - 1, i);
-                                eUnfinished.add(new EventDay(calendar, R.drawable.ic_uncheck, Color.parseColor("#FF0000")));
-                                calendarView.setEvents(eUnfinished);
+                                EventDay e = new EventDay(calendar, R.drawable.ic_uncheck, Color.parseColor("#FF0000"));
+                                eUnfinished.add(e);
+
                                 for (DataSnapshot ds1 : dataSnapshot.child(date).child("vaje").child("Unfinished").getChildren()) {
                                     vaje += ds1.getKey() + ", ";
                                 }
+
                                 if (!vaje.equals("")) {
                                     vaje = vaje.substring(0, vaje.length() - 2);
                                     vUnfinished.put(new EventDay(calendar), vaje);
                                 }
-                            }
-                            if (ds.getKey().equals("Finished")) {
+                            } else if (ds.getKey().equals("Finished")) {
                                 vaje = "";
+                                Calendar calendar = Calendar.getInstance(Locale.getDefault());
                                 calendar.set(MainActivity.Year, j - 1, i);
-                                eFinished.add(new EventDay(calendar, R.drawable.ic_check, Color.parseColor("#008000")));
-                                calendarView.setEvents(eFinished);
+                                EventDay e = new EventDay(calendar, R.drawable.ic_check, Color.parseColor("#008000"));
+                                eFinished.add(e);
+                                eUnfinished.add(e);
+
 
                                 for (DataSnapshot ds1 : dataSnapshot.child(date).child("vaje").child("Finished").getChildren()) {
                                     vaje += ds1.getKey() + ", ";
                                 }
-                                if (!vaje.equals("")) {
+                                if (!vaje.equals("") && !vaje.equals(null)) {
                                     vaje = vaje.substring(0, vaje.length() - 2);
                                     vFinished.put(new EventDay(calendar), vaje);
                                 }
@@ -101,13 +111,15 @@ public class ThirdFragment extends Fragment {
 
                     }
                 }
+
+                calendarView.setEvents(eUnfinished);
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         };
-
         Referenca.addListenerForSingleValueEvent(eventListener);
 
         calendarView.setOnDayClickListener(new OnDayClickListener() {
@@ -175,6 +187,7 @@ public class ThirdFragment extends Fragment {
                             public void onClick(View v) {
                                 CalendarDate = String.valueOf(eventDay.getCalendar().YEAR) + "/" + String.valueOf(eventDay.getCalendar().MONTH + 1) + "/" + String.valueOf(eventDay.getCalendar().DAY_OF_MONTH);
                                 finalPopupWindow.dismiss();
+                                MainActivity.CalendarDate = CalendarDate;
                                 goToAddExercise();
 
                             }
@@ -193,7 +206,8 @@ public class ThirdFragment extends Fragment {
                             }
                         });
                     }
-                }if(eventDay.getCalendar().getTime().after(today)){
+                }if(eventDay.getCalendar().getTime().after(today) && !ou){
+
                     inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     popupView = inflater.inflate(R.layout.popup, null);
                     // create the popup window
@@ -213,10 +227,13 @@ public class ThirdFragment extends Fragment {
                         add.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                CalendarDate = String.valueOf(eventDay.getCalendar().YEAR) + "/" + String.valueOf(eventDay.getCalendar().MONTH + 1) + "/" + String.valueOf(eventDay.getCalendar().DAY_OF_MONTH);
+                                Calendar day = eventDay.getCalendar();
+                                CalendarDate = String.valueOf(day.get(Calendar.YEAR)) + "/" + String.valueOf(day.get(Calendar.MONTH) + 1) + "/" + String.valueOf(day.get(Calendar.DAY_OF_MONTH));
+                                MainActivity.CalendarDate = CalendarDate;
+                                System.out.println("Calendar "+ CalendarDate);
+                                System.out.println("Today "+ MainActivity.TodayDate);
                                 finalPopupWindow.dismiss();
                                 goToAddExercise();
-
                             }
                         });
                         close.setOnClickListener(new View.OnClickListener() {

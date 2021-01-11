@@ -36,6 +36,7 @@
 
 
     <com.applandeo.materialcalendarview.CalendarView
+        app:eventsEnabled="true"
         android:id="@+id/calendarView"
         android:backgroundTint="@color/lgray"
         android:layout_width="350dp"

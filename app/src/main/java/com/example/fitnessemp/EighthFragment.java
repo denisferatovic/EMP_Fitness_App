@@ -84,6 +84,7 @@ public class EighthFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         back = view.findViewById(R.id.backBtn);
+        back.bringToFront();
 
         HashMap<String,AddExerciseFragment.Workout> workouts = ((MainActivity)getActivity()).workouts;
         LinearLayout myLayout = view.findViewById(R.id.items);
@@ -140,6 +141,7 @@ public class EighthFragment extends Fragment {
             finishBtn.setBackgroundColor(Color.parseColor("#808E8E8E"));
             setMargins(finishBtn, 10, 10, 10, 200);
             finishBtn.bringToFront();
+
             try {
                 finishBtn.setTextColor(ColorStateList.createFromXml(getResources(),getResources().getXml(R.color.tint)));
             } catch (IOException e) {
@@ -158,7 +160,6 @@ public class EighthFragment extends Fragment {
             myLayout.addView(finishBtn,layoutParams);
         }
 
-        back.bringToFront();
         back.setOnClickListener(arg0 -> {
             Fragment fragment = new CardsFragment();
             // Insert the fragment by replacing any existing fragment

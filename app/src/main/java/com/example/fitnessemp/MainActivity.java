@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.applandeo.materialcalendarview.EventDay;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.navigation.NavigationView;
@@ -34,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import static com.example.fitnessemp.R.drawable.ic_hamburger;
 
@@ -58,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String date;
     public static String TodayDate;
     public static int Day,Year,Month;
+    public static String CalendarDate;
+    public static List<EventDay> eUnfinished = new ArrayList<>();
+    public static List<EventDay> eFinished = new ArrayList<>();
+
 
     //test id
     //public static String android_id= "13"; //Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);

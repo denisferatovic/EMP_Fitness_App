@@ -61,26 +61,27 @@ public class FourthFragment extends Fragment {
                 String dateF = "";
                 String dateUF = "";
                 String vaje = "";
-
-                for (int i = 1; i < maxDays; i++) {
-                    String date = String.valueOf(MainActivity.Year) + "/";
-                    date += MainActivity.Month + "/" + i;
-                    if(dataSnapshot.hasChild(date)) {
-                        for (DataSnapshot ds : dataSnapshot.child(date).child("vaje").getChildren()) {
-                            if (ds.getKey().equals("Finished")) {
-                                int counter = 0;
-                                for (DataSnapshot ds1 : dataSnapshot.child(date).child("vaje").child("Finished").getChildren()) {
-                                    counter++;
+                if(count == 0) {
+                    for (int i = 1; i < maxDays; i++) {
+                        String date = String.valueOf(MainActivity.Year) + "/";
+                        date += MainActivity.Month + "/" + i;
+                        if (dataSnapshot.hasChild(date)) {
+                            for (DataSnapshot ds : dataSnapshot.child(date).child("vaje").getChildren()) {
+                                if (ds.getKey().equals("Finished")) {
+                                    int counter = 0;
+                                    for (DataSnapshot ds1 : dataSnapshot.child(date).child("vaje").child("Finished").getChildren()) {
+                                        counter++;
+                                    }
+                                    updateChart(i, counter, "# Monthly finished exercises");
+                                } else {
+                                    updateChart(i, 0, "# Monthly finished exercises");
                                 }
-                                updateChart(i, counter,"# Monthly finished exercises");
-                            } else {
-                                updateChart(i, 0, "# Monthly finished exercises");
                             }
+                        } else {
+                            updateChart(i, 0, "# Monthly finished exercises");
                         }
-                    }else{
-                        updateChart(i, 0, "# Monthly finished exercises");
-                    }
 
+                    }
                 }
 
             }
@@ -144,7 +145,8 @@ public class FourthFragment extends Fragment {
                     Referenca.addListenerForSingleValueEvent(eventListener);
 
                     count++;
-                }else{
+
+                }if(count % 2 == 0){
                     chart.clear();
                     DatabaseReference Referenca = MainActivity.mDatabase.getDatabase().getReference(MainActivity.android_id);
 

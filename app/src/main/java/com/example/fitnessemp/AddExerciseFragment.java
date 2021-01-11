@@ -83,7 +83,7 @@ public class AddExerciseFragment extends Fragment {
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
-                    if(ThirdFragment.CalendarDate == "" || ThirdFragment.CalendarDate == null) {
+                    if(MainActivity.CalendarDate == "" || MainActivity.CalendarDate == null) {
                         if (snapshot.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(name).exists()) {
                             for (String a : workout.vaje) {
                                 mDatabase.child(MainActivity.android_id).child(TodayDate).child("vaje").child("Unfinished").child(name + name).child(a).setValue("");
@@ -103,14 +103,14 @@ public class AddExerciseFragment extends Fragment {
                                 mDatabase.child(MainActivity.android_id).child("vaje").child(workout.ime()).child(a).setValue("");
                             }
                         }
-                    }else if(ThirdFragment.CalendarDate != null){
-                        if (snapshot.child(MainActivity.android_id).child(ThirdFragment.CalendarDate).child("vaje").child("Unfinished").child(name).exists()) {
+                    }else if(MainActivity.CalendarDate != null){
+                        if (snapshot.child(MainActivity.android_id).child(MainActivity.CalendarDate).child("vaje").child("Unfinished").child(name).exists()) {
                             for (String a : workout.vaje) {
-                                mDatabase.child(MainActivity.android_id).child(ThirdFragment.CalendarDate).child("vaje").child("Unfinished").child(name + name).child(a).setValue("");
+                                mDatabase.child(MainActivity.android_id).child(MainActivity.CalendarDate).child("vaje").child("Unfinished").child(name + name).child(a).setValue("");
                             }
                         } else {
                             for (String a : workout.vaje) {
-                                mDatabase.child(MainActivity.android_id).child(ThirdFragment.CalendarDate).child("vaje").child("Unfinished").child(workout.ime()).child(a).setValue("");
+                                mDatabase.child(MainActivity.android_id).child(MainActivity.CalendarDate).child("vaje").child("Unfinished").child(workout.ime()).child(a).setValue("");
                             }
                         }
 
