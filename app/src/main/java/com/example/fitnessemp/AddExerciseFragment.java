@@ -9,17 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -130,14 +127,12 @@ public class AddExerciseFragment extends Fragment {
 
                 }
 
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
             Toast.makeText(this.getContext(), "Exercise added to database!  ", Toast.LENGTH_LONG).show();
-
 
         }
         else {
@@ -237,6 +232,4 @@ public class AddExerciseFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
     }
-
-
 }

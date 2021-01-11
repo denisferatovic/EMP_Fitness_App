@@ -19,13 +19,12 @@ public class StepCounter extends Fragment implements SensorEventListener, StepLi
 
     private TextView textView;
     //    private TextView currentSensitivity;
-//    private TextView sensitivityValue;
+    //    private TextView sensitivityValue;
     private StepDetector simpleStepDetector;
     private SensorManager sensorManager;
     private Sensor accel;
     private static final String TEXT_NUM_STEPS = "";
     private int numSteps;
-
 
     @Override
     public View onCreateView(
@@ -109,4 +108,4 @@ public class StepCounter extends Fragment implements SensorEventListener, StepLi
         numSteps = MainActivity.steps;
 
     }
-    }
+}

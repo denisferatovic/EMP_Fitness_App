@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateAndCalendar {
+
     public static void main(String[] argv) throws ParseException {
 
         //1. Create a Date from String
@@ -37,5 +38,4 @@ public class DateAndCalendar {
     private Date calendarToDate(Calendar calendar) {
         return calendar.getTime();
     }
-
 }

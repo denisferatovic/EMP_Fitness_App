@@ -27,8 +27,8 @@ public class StepDetector {
         this.listener = listener;
     }
 
-
     public void updateAccel(long timeNs, float x, float y, float z) {
+
         float[] currentAccel = new float[3];
         currentAccel[0] = x;
         currentAccel[1] = y;
@@ -64,9 +64,11 @@ public class StepDetector {
         }
         oldVelocityEstimate = velocityEstimate;
     }
+
     public void setSensitivity(float value) {
         STEP_THRESHOLD = value;
     }
+
     public float getSensitivity() {
         return STEP_THRESHOLD;
     }

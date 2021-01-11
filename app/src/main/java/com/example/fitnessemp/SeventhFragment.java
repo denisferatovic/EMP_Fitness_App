@@ -45,11 +45,8 @@ public class SeventhFragment extends Fragment {
 
          yt = view.findViewById(R.id.activity_main_youtubePlayerView);
 
-
         return view;
     }
-
-
 
     @Override
     public void onResume() {
@@ -70,6 +67,5 @@ public class SeventhFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
     }
-
 }
 

@@ -1,34 +1,21 @@
 package com.example.fitnessemp;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CardsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CardsFragment extends Fragment {
+
     RecyclerView recyclerView;
     Adapter adapter;
     HashMap<String,AddExerciseFragment.Workout> w;
@@ -38,14 +25,6 @@ public class CardsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CardsFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static CardsFragment newInstance(String param1, String param2) {
         CardsFragment fragment = new CardsFragment();
@@ -119,5 +98,4 @@ public class CardsFragment extends Fragment {
             view.requestLayout();
         }
     }
-
 }

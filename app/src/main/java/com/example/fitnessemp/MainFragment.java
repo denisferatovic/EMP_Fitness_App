@@ -13,21 +13,16 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-
 import static com.example.fitnessemp.MainActivity.TodayDate;
 import static com.example.fitnessemp.MainActivity.mDatabase;
 import static com.example.fitnessemp.MainActivity.workoutsOld;
@@ -66,13 +61,12 @@ public class MainFragment extends Fragment {
         //Daily progress circles
         ProgressCircle circleProg1 = (ProgressCircle) view.findViewById(R.id.workoutBar);
         ProgressCircle circleProg2 = (ProgressCircle) view.findViewById(R.id.stepBar);
-
+        /*
         System.out.println(DailySteps);
         System.out.println(DailyWorkouts);
         System.out.println(currentSteps);
         System.out.println(currentWorkouts);
-
-
+         */
 
         if(DailyWorkouts != 0) {
             circleProg1.setMax(DailyWorkouts);
@@ -136,6 +130,7 @@ public class MainFragment extends Fragment {
 
         activeWorkoutContainer = view.findViewById(R.id.activeWorkoutsContainer);
         String novtext="";
+
         if(!MainActivity.workouts.isEmpty()) {
 
             for(HashMap.Entry<String, AddExerciseFragment.Workout> entry : MainActivity.workouts.entrySet()){
@@ -144,6 +139,7 @@ public class MainFragment extends Fragment {
             Log.d("Concat",novtext);
             activeWorkoutContainer.setText(novtext);
         }
+
         addExercise = view.findViewById(R.id.addExercise);
         activeWorkoutContainer.setMovementMethod(new ScrollingMovementMethod());
         setRetainInstance(true);
@@ -159,6 +155,7 @@ public class MainFragment extends Fragment {
             ft.commit();
         }
          */
+
         Spinner s1 = (Spinner) view.findViewById(R.id.spinner3);
         ArrayList<String> arraySpinner2 = new ArrayList<String>();
         for(HashMap.Entry<String, AddExerciseFragment.Workout> entry : MainActivity.workouts.entrySet()){
@@ -180,6 +177,7 @@ public class MainFragment extends Fragment {
 
             }
         });
+
         addExercise.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -218,11 +216,9 @@ public class MainFragment extends Fragment {
             }
         });
 
-
         return view;
 
     }
-
 
     @Override
     public void onResume() {
@@ -231,7 +227,6 @@ public class MainFragment extends Fragment {
         DailySteps = MainActivity.DailySteps;
         currentSteps = MainActivity.steps;
     }
-
 
     @Override
     public void onDestroy() {

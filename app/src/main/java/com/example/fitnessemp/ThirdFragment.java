@@ -10,15 +10,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.google.firebase.database.DataSnapshot;
@@ -147,8 +144,7 @@ public class ThirdFragment extends Fragment {
                     out += vUnfinished.get(eventDay);
                     out += "\n";
 
-                }
-                if (eFinished.contains(eventDay)) {
+                }if (eFinished.contains(eventDay)) {
                     ou = true;
                     // inflate the layout of the popup window
                     inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -162,8 +158,7 @@ public class ThirdFragment extends Fragment {
                     System.out.println("joj");
                     out += vFinished.get(eventDay);
 
-                }
-                if (popupWindow != null && ou) {
+                }if (popupWindow != null && ou) {
                     TextView valueTV = popupView.findViewById(R.id.mojPrint);
                     valueTV.setText(out);
                     Button add = popupView.findViewById(R.id.gumb);
@@ -232,10 +227,8 @@ public class ThirdFragment extends Fragment {
                         });
                     }
                 }
-
             }
         });
-
 
         return view;
     }
@@ -268,7 +261,5 @@ public class ThirdFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
     }
-
-
 }
 

@@ -43,5 +43,4 @@ public class SensorFilter {
         }
         return retval;
     }
-
 }

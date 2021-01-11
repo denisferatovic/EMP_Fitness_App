@@ -22,7 +22,6 @@ public class MyLocationListener implements LocationListener {
     boolean isNetworkEnabled = false;
     public static double longitude;
 
-
     MyLocationListener(Context ctx) {
         this.ctx = ctx;
         try {
@@ -48,18 +47,15 @@ public class MyLocationListener implements LocationListener {
             longitude = location.getLongitude();
             locationOut = location;
             // Toast.makeText(ctx,"latitude: "+latitude+" longitude: "+longitude,Toast.LENGTH_LONG).show();
-
-
         }
-        catch(Exception ex)
-        {
+        catch(Exception ex){
             //Toast.makeText(ctx,"Exception "+ex, Toast.LENGTH_LONG).show();
         }
     }
+
     @Nullable
     @Override
-    public void onLocationChanged(Location loc)
-    {
+    public void onLocationChanged(Location loc){
         loc.getLatitude();
         loc.getLongitude();
         latitude=loc.getLatitude();
@@ -67,18 +63,17 @@ public class MyLocationListener implements LocationListener {
     }
 
     @Override
-    public void onProviderDisabled(String provider)
-    {
+    public void onProviderDisabled(String provider){
         //print "Currently GPS is Disabled";
     }
+
     @Override
-    public void onProviderEnabled(String provider)
-    {
+    public void onProviderEnabled(String provider){
         //print "GPS got Enabled";
     }
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras)
-    {
 
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras){
+        //Code here
     }
 }

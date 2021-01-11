@@ -86,7 +86,6 @@ public class FifthFragment extends Fragment {
             savedInstanceState.putBoolean("wasRunning", wasRunning);        }
     }
 
-
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         savedInstanceState.putInt("seconds", seconds);

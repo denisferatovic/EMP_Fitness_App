@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String date;
     public static String TodayDate;
     public static int Day,Year,Month;
+
     //test id
     //public static String android_id= "13"; //Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
@@ -226,8 +227,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         onlyOneLocation = location;
         locationManager.removeUpdates(this);
     }
+
     @Override public void onStatusChanged(String provider, int status, Bundle extras) { }
+
     @Override public void onProviderEnabled(String provider) { }
+
     @Override public void onProviderDisabled(String provider) { }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -319,9 +323,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.replace(R.id.container_fragment, new MaxCalculator());
             fragmentTransaction.commit();
             drawerLayout.closeDrawers();
-
-
         }
+
         return true;
     }
 
@@ -338,13 +341,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
     }
+
     class WorkoutDays{
         HashMap<String,Integer[]> vaje = new HashMap<>();
         void add(String vaja,Integer [] reps_sets){
@@ -358,6 +361,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             return text;
         }
-
     }
 }

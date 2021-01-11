@@ -4,13 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import android.text.InputType;
@@ -21,19 +19,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-
 import org.xmlpull.v1.XmlPullParserException;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,8 +36,8 @@ import java.util.Map;
 import static com.example.fitnessemp.MainActivity.android_id;
 import static com.example.fitnessemp.MainActivity.mDatabase;
 
-
 public class EighthFragment extends Fragment {
+
     private static Context ctx;
     private ArrayAdapter<String> adapter;
     private static final String ARG_PARAM1 = "param1";
@@ -136,6 +130,7 @@ public class EighthFragment extends Fragment {
 
             }
         }
+
         if(workouts.size() > 0){
             finishBtn = new MaterialButton(view.getContext());
             finishBtn.setId(id);
@@ -207,9 +202,7 @@ public class EighthFragment extends Fragment {
                             mDatabase.child(android_id).child(MainActivity.TodayDate).child("vaje").child("Unfinished").child(key).child(vaja).setValue(e1.getText().toString()+" x "+e2.getText().toString());
                             finalI[0]++;
                         }
-
                     }
-
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
@@ -220,8 +213,5 @@ public class EighthFragment extends Fragment {
             }
             //Toast.makeText(ctx,"Finished workout",Toast.LENGTH_LONG).show();
             //Log.d("Database",mDatabase.child(date).toString());
-
     }
-
-
 }

@@ -12,13 +12,9 @@ import android.widget.Spinner;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -44,13 +40,16 @@ public class SecondFragment extends Fragment {
 
         Spinner s = (Spinner) view.findViewById(R.id.spinner1);
         ArrayList<String> arraySpinner = new ArrayList<String>();
+
         for(HashMap.Entry<String, AddExerciseFragment.Workout> entry : MainActivity.workouts.entrySet()){
             arraySpinner.add(entry.getValue().ime());
         }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, arraySpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
+
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -63,18 +62,22 @@ public class SecondFragment extends Fragment {
 
             }
         });
+
         finish = view.findViewById(R.id.finishExercise);
         finish.setOnClickListener(view -> finishExercise());
 
         Spinner s1 = (Spinner) view.findViewById(R.id.spinner2);
         ArrayList<String> arraySpinner2 = new ArrayList<String>();
+
         for(HashMap.Entry<String, AddExerciseFragment.Workout> entry : MainActivity.workouts.entrySet()){
             arraySpinner2.add(entry.getValue().ime());
         }
+
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(view.getContext(),
                 android.R.layout.simple_spinner_dropdown_item, arraySpinner2);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s1.setAdapter(adapter2);
+
         s1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -183,6 +186,4 @@ public class SecondFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
     }
-
-
 }

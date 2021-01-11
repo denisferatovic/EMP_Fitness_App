@@ -1,7 +1,6 @@
 package com.example.fitnessemp;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,27 +8,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+
     private LayoutInflater layoutInflater;
     private HashMap<String, AddExerciseFragment.Workout> data;
     private Context ctx;
@@ -187,6 +181,5 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             Integer w = entry.getValue();
             System.out.println(set + " " + w);
         }
-
     }
 }
