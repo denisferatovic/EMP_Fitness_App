@@ -23,6 +23,13 @@
         android:theme="@style/Theme.FitnessEMP">
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBdOvTWvRNqdJAZzHRx8MyA69l9BK3mSJo"/>
         <meta-data android:name="com.google.firebase.database.FirebaseDatabase.API_KEY" android:value="AIzaSyC4R54yJRzb22ySyrhkUODQ--FknEPo3iA"/>
+        <activity android:name=".SplashScreenActivity"
+            android:theme="@style/SplashScreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity" android:theme="@style/Theme.FitnessEMP.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
     </application>
 
